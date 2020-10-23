@@ -1,0 +1,266 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Battle Arena";
+}
+
+<link href="~/css/cards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+<link href="~/css/battle.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+
+<!-- Modal -->
+@Html.Partial("_ModalWarnings")
+
+<div id="battleContainer">
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Battle - Hell ****@
+        <div id="battleHell" data-depth="0" data-limit-x="true" class="battle-hell" style="display: none;"></div>
+
+        @***** Battle - Hell Steam ****@
+        <div id="battleHellSteam" data-depth="0.02" data-limit-x="true" class="battle-hell-steam" style="display: none;"></div>
+
+        @***** Battle - Meadows ****@
+        <div id="battleMeadows" data-depth="0" data-limit-x="true" class="battle-meadows" style="display: none;"></div>
+
+        @***** Battle - Forest ****@
+        <div id="battleForest" data-depth="0" data-limit-x="true" class="battle-forest" style="display: none;"></div>
+    
+        @***** Battle - Forest ****@
+        <div id="battleThunderdome" data-depth="0" data-limit-x="true" class="battle-thunderdome" style="display: none;"></div>
+
+    @***** Cards ****@
+        <div id="arenaContainer" class="container-fluid cards" style="padding-top: 70px; display: none;">
+            <div class="container">
+                <div class="pl-2">
+                    <div class="alert text-center" style="background-color:beige; opacity: 0.9;" role="alert">
+                        Your angels get stronger by earning experience, you can get powerful new pet cards for free by defeating them. <a href="https://medium.com/@@michael_41543/battling-guide-3d1bd76a2061" target="_blank" style="text-decoration:none;">See detailed instructions.</a>
+                    </div>
+                    <div id="titleText">
+                        <h3>Battle Arena</h3>
+                        <hr class="my-4">
+                    </div>
+                </div>
+
+                <div id="arenaSelectionContainer" class="container-fluid p-3" style="width: 100%; display: none;">
+                    <div class="card-deck">
+                        <div id="meadowRock" class="col-md p-3 hand-cursor button-events">
+                            <img class="card-img-top p-2 rock" src="~/images/Battle/MeadowRock.png" alt="Wimpy Cirrus Meadows Battle">
+                        </div>
+                        <div id="forestRock" class="col-md p-3 hand-cursor button-events">
+                            <div id="angelToTrain">
+                                <img class="card-img-top p-2 rock" src="~/images/Battle/Forest.png" alt="Menacing Nimbus Forest Battle">
+                            </div>
+                        </div>
+                        <div id="thunderDomeRock" class="col-md p-3 hand-cursor button-events">
+                            <div id="angelToTrain">
+                                <img class="card-img-top p-2 rock" src="~/images/Battle/ThunderDomeRock.png" alt="Thunderdome Battle">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="meadowsContainer" class="container-fluid p-3" style="width: 70%; background-color: black; border: dashed; border-width: 1px; border-color: black; border-radius: 5px; display: none;">
+                    <div class="card-deck">
+                        <div id="angelToBattle" class="card" data-angelid="" style="width: auto; height: 170px;">
+                            <img id="angelImage" class="card-img-top p-2 align-self-center" src="~/images/Site/blank.gif" alt="Choose an angel to battle" style="max-width: 150px; display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="chooseAngelText" class="m-3">click on your angel to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="petToBattle" class="card" data-petid="" style="width: auto; height: 170px;">
+                            <img id="petImage" class="card-img-top align-self-center mt-2" src="~/images/Site/blank.gif" alt="Choose a pet to battle" style="display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="choosePetText" class="m-4" style="display: none;">click on your pet to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="accessoryToBattle" class="card" data-accessoryid="" style="width: auto; height: 170px;">
+                            <img id="accessoryImage" class="card-img-top m-2 align-self-center mt-2" src="~/images/Site/blank.gif" alt="Choose an accessory (optional)" style="display: none; max-height: 150px; max-width: 100px;">
+                            <div class="container d-flex h-100">
+                                <div id="chooseAccessory" class="row justify-content-center align-self-center text-center align-middle" style="display: none;">
+                                    <p id="chooseAccessoryText" class="m-4">choose an accessory (optional)</p>
+                                    <button id="skipAccessory" type="button" class="btn btn-secondary btn-sm">Skip</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="forestContainer" class="container-fluid p-3" style="width: 100%; background-color: black; border: dashed; border-width: 1px; border-color: black; border-radius: 5px; display: none;">
+                    <div class="card-deck">
+                        <div id="angelToBattle" class="card" data-angelid="" style="width: auto; height: 170px;">
+                            <img id="angelImage" class="card-img-top p-2 align-self-center" src="~/images/Site/blank.gif" alt="Choose an angel to battle" style="max-width: 150px; display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="chooseAngelText" class="m-3">click on your angel to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="angel2ToBattle" class="card" data-angelid="" style="width: auto; height: 170px;">
+                            <img id="angel2Image" class="card-img-top p-2 align-self-center" src="~/images/Site/blank.gif" alt="Choose an angel to battle" style="max-width: 150px; display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="chooseAngel2Text" class="m-3" style="display: none;">click on your angel to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="petToBattle" class="card" data-petid="" style="width: auto; height: 170px;">
+                            <img id="petImage" class="card-img-top align-self-center mt-2" src="~/images/Site/blank.gif" alt="Choose a pet to battle" style="display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="choosePetText" class="m-4" style="display: none;">click on your pet to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="pet2ToBattle" class="card" data-petid="" style="width: auto; height: 170px;">
+                            <img id="pet2Image" class="card-img-top align-self-center mt-2" src="~/images/Site/blank.gif" alt="Choose a pet to battle" style="display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="choosePet2Text" class="m-4" style="display: none;">click on your pet to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="accessoryToBattle" class="card" data-accessoryid="" style="width: auto; height: 170px;">
+                            <img id="accessoryImage" class="card-img-top m-2 align-self-center mt-2" src="~/images/Site/blank.gif" alt="Choose an accessory (optional)" style="display: none; max-height: 150px; max-width: 100px;">
+                            <div class="container d-flex h-100">
+                                <div id="chooseAccessory" class="row justify-content-center align-self-center text-center align-middle" style="display: none;">
+                                    <p id="chooseAccessoryText" class="m-4">choose an accessory (optional)</p>
+                                    <button id="skipAccessory" type="button" class="btn btn-secondary btn-sm">Skip</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="thunderdomeContainer" class="container-fluid p-3" style="width: 100%; background-color: black; border: dashed; border-width: 1px; border-color: black; border-radius: 5px; display: none;">
+                    <div class="card-deck">
+                        <div id="angelToBattle" class="card" data-angelid="" style="width: auto; height: 170px;">
+                            <img id="angelImage" class="card-img-top p-2 align-self-center" src="~/images/Site/blank.gif" alt="Choose an angel to battle" style="max-width: 150px; display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="chooseAngelText" class="m-3">click on your angel to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="angel2ToBattle" class="card" data-angelid="" style="width: auto; height: 170px;">
+                            <img id="angel2Image" class="card-img-top p-2 align-self-center" src="~/images/Site/blank.gif" alt="Choose an angel to battle" style="max-width: 150px; display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="chooseAngel2Text" class="m-3" style="display: none;">click on your angel to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="petToBattle" class="card" data-petid="" style="width: auto; height: 170px;">
+                            <img id="petImage" class="card-img-top align-self-center mt-2" src="~/images/Site/blank.gif" alt="Choose a pet to battle" style="display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="choosePetText" class="m-4" style="display: none;">click on your pet to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="pet2ToBattle" class="card" data-petid="" style="width: auto; height: 170px;">
+                            <img id="pet2Image" class="card-img-top align-self-center mt-2" src="~/images/Site/blank.gif" alt="Choose a pet to battle" style="display: none;">
+                            <div class="container d-flex h-100">
+                                <div class="row justify-content-center align-self-center text-center align-middle">
+                                    <p id="choosePet2Text" class="m-4" style="display: none;">click on your pet to battle</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="accessoryToBattle" class="card" data-accessoryid="" style="width: auto; height: 170px;">
+                            <img id="accessoryImage" class="card-img-top m-2 align-self-center mt-2" src="~/images/Site/blank.gif" alt="Choose an accessory (optional)" style="display: none; max-height: 150px; max-width: 100px;">
+                            <div class="container d-flex h-100">
+                                <div id="chooseAccessory" class="row justify-content-center align-self-center text-center align-middle" style="display: none;">
+                                    <p id="chooseAccessoryText" class="m-4">choose an accessory (optional)</p>
+                                    <button id="skipAccessory" type="button" class="btn btn-secondary btn-sm">Skip</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="beginBattle" class="form-row text-center mt-4" style="display: none;">
+                    <div class="col-12">
+                        <button id="beginBattleButton" type="button" class="btn btn-danger btn-lg">Begin Battle!</button>
+                    </div>
+                </div>
+
+                @Html.Partial("_Loader")
+
+                <div id="angelsContainer" style="display: none;"></div>
+
+                <div>
+                    <p id="warnNoCardsFoundAngel" class="alert alert-primary text-center mt-5" style="display: none;">No angel cards yet. <a asp-controller="realm">Let's get some angels!</a></p>
+                </div>
+
+                <div>
+                    <p id="warnOneMoreAngel" class="alert alert-primary text-center mt-5" style="display: none;">You need one more angel card to battle. <a asp-controller="realm">Let's get another angel!</a></p>
+                </div>
+
+                <div id="petsContainer" style="display: none;"></div>
+
+                <div>
+                    <p id="warnNoCardsFoundPet" class="alert alert-primary text-center mt-5" style="display: none;">No pet cards yet. <a asp-controller="realm">Let's get some pets!</a></p>
+                </div>
+
+                <div>
+                    <p id="warnOneMorePet" class="alert alert-primary text-center mt-5" style="display: none;">You need one more pet card. <a asp-controller="realm">Let's get another pet!</a></p>
+                </div>
+
+                <div id="accessoriesContainer" style="display: none;"></div>
+
+                <div>
+                    <p id="warnNoCardsFoundAccessory" class="alert alert-primary text-center mt-5" style="display: none;">No accessory cards yet--get some to increase your battle strength, or click 'Skip'. <a asp-controller="realm">Let's get some accessories!</a></p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-data text-center">
+            <div id="battleCompleted" class="container absolute-center is-responsive button-events overflow-auto" style="display: none;">
+                <div class="row align-self-center rounded" style="background-color: whitesmoke;">
+                    <div class="col-md-6 pl-4 pt-4 pb-4">
+                        <img src="~/images/Ribbons/BattleRibbon.png" class="mt-lg-4" style="width: 90%;" />
+                    </div>
+                    <div class="col-md-6 p-5">
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h2>VICTORY WILL BE YOURS!</h2></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h4>Your angel and pets are gloriously battling a monster--while being mined on the Ethereum blockchain.</h4></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Depending on the network traffic your transaction could take a few minutes to several hours. Once mined the results will increase the angel's battle power, and if you defeat the monster it will become one of your pets! Go to the <a asp-controller="Team">My Team</a> page to see your results.</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Keep on battling and your angels and pets and you'll be soon crushing it on the Leaderboard and making your way to the top of Mt. Zion!</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><b>Once an angel is in battle they can't be entered into another battle for 8 hours. Pets and accessories can be used continuously.</b></div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center button-events mb-3">
+                            <button id="keepBattling" type="button" class="btn btn-danger btn-lg">Let's keep battling on!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/battle.js?version=@Helpers.JavascriptVersion"></script>
+
+    <environment include="Development">
+        <script src="~/js/jscookie.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+    <environment exclude="Development">
+        @*<script src="~/js/battle.min.js?version=@Helpers.JavascriptVersion"></script>*@
+        <script src="~/js/jscookie.min.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/parallax.min.js"></script>
+}

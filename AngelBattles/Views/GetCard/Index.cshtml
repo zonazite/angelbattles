@@ -1,0 +1,154 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Get card";
+}
+
+<link href="~/css/cards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/getcard.css?version=@Helpers.JavascriptVersion" />
+
+<!-- Modal -->
+@Html.Partial("_ModalWarnings")
+
+<!-- Containers -->
+<div id="heavenContainer">
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Heaven - Middle *****@
+        @*<div data-depth="0.04" class="heaven-middle"></div>*@
+
+        @***** Heaven - Front ****@
+        @*<div data-depth="0" class="getcard-modal"></div>*@
+
+        @***** Rock Panel ****@
+        @*<div class="absolute-center is-responsive">
+                <div class="rock-card-containter">
+                </div>
+            </div>*@
+
+        <div id="cardsContainer" class="container-fluid cards" style="padding-top: 70px; padding-bottom: 30px;">
+            <div id="buyAngelsContainer" style="display: none;">
+                <div class="container button-events">
+                    @Html.Partial("_AngelRowCards", new AngelCardRowsViewModel { ShowComingSoonCards = false })
+                </div>
+            </div>
+
+            <div id="buyPetsContainer" style="display: none;">
+                <div class="container button-events">
+                    @Html.Partial("_PetRowCards")
+                </div>
+            </div>
+
+            <div id="buyAccessoriesContainer" style="display: none;">
+                <div class="container button-events">
+                    @Html.Partial("_AccessoryRowCards")
+                </div>
+            </div>
+        </div>
+
+        <div class="card-data text-center">
+            <div id="getCardContainer" class="container absolute-center is-responsive button-events overflow-auto" style="display: none;">
+                <div class="row align-self-center rounded parent-opacity">
+                    <div class="col-sm-6 pl-4 pt-4 pb-4">
+                        <img id="cardImage" class="card-image" src="" />
+                        <div id="angelPowerAndAura" style="display: none;">
+                            <div class="row align-self-center pt-1 mt-3 ml-3" style="background-color:gainsboro;">
+                                <div class="col-sm text-center">Battle Power Range</div>
+                                <div class="col-sm text-center">Aura</div>
+                            </div>
+                            <div class="row align-self-center pb-3 ml-3">
+                                <div class="col-sm text-center"><h5 id="battlePower"></h5></div>
+                                <div class="col-sm text-center"><h5 id="aura"></h5></div>
+                            </div>
+                        </div>
+                        <div id="petLuck" style="display: none;">
+                            <div class="row align-self-center pt-1 mt-3 ml-3" style="background-color:gainsboro;">
+                                <div class="col-sm text-center">Luck Range</div>
+                            </div>
+                            <div class="row align-self-center pb-3 ml-3">
+                                <div class="col-sm text-center"><h5 id="luck"></h5></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-5">
+                        <div class="row align-self-center">
+                            <div class="col-sm text-center">Price</div>
+                            <div class="col-sm text-center">Total Remaining</div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-center"><h3 id="price"></h3></div>
+                            <div class="col-sm text-center"><h3 id="totalRemaining"></h3></div>
+                        </div>
+                        <br />
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p id="description"></p></div>
+                        </div>
+                        <br />
+                        <div id="petNameGroup" class="input-group" style="display: none;">
+                            <span class="input-group-addon" id="sizing-addon2"></span>
+                            <input id="petName" type="text" class="form-control" placeholder="Give your pet a name" aria-describedby="sizing-addon2">
+                        </div>
+                        <br />
+                        <div class="row justify-content-center button-events">
+                            <button id="getCard" type="button" class="btn btn-danger btn-lg" style="display: none;">Get card!</button>
+                            <h2 id="soldOut" style="display: none;"><span class="badge badge-danger">Sold Out</span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-data text-center">
+            <div id="cardBoughtContainer" class="container absolute-center is-responsive button-events overflow-auto" style="display: none;">
+                <div class="row align-self-center rounded parent-opacity">
+                    <div class="col-md-6 pl-4 pt-4 pb-4">
+                        <img src="~/images/GetCard/Mining.svg" />
+                    </div>
+                    <div class="col-md-6 p-5">
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h2>WOOHOO!</h2></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h4>Your card is being mined on the Ethereum blockchain.</h4></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Depending on the network traffic your transaction could take a few minutes to several hours. Once mined your card will appear in the <a asp-controller="Team">My Team</a> page.</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>To battle you will need at least two pets. Make sure you train them so that they have a chance to help you win some battles.</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Soon you will be crushing it on the Leaderboard and making your way to the top of Mt. Zion!</p></div>
+                        </div>
+                        <div class="row justify-content-center button-events mt-4">
+                            <button id="goToMyTeam" type="button" class="btn btn-dark mr-3" style="display: none;">Let's check out my team!</button>
+                            <button id="getPets" type="button" class="btn btn-dark mr-3" style="display: none;">Let's get some pets!</button>
+                            <button id="getAnotherPet" type="button" class="btn btn-dark mr-3" style="display: none;">Get another pet</button>
+                            <button id="getAccessories" type="button" class="btn btn-danger mr-3" style="display: none;">Let's get some accessories!</button>
+                            <button id="freeAngel" type="button" class="btn btn-danger" style="display: none;">Get a better angel</button>
+                            <b id="freeAngelTip" style="display: none;" class="mt-3">TIP: To win some battles with the free card you're going to need to train the hell out of it--with a strong pet combo. You should consider getting a seriously strong accessory to help you out! Good luck.</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @**** Logo ****@
+        <div class="logo-background">
+            <a asp-controller="realm">
+                <img src="~/images/Site/Logo.svg" class="logo-small" />
+            </a>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <environment include="Development">
+        <script src="~/js/getcard.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/getcard.min.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+
+    <script type="text/javascript" src="~/js/jquery.lazy.min.js"></script>
+    <script src="~/js/parallax.min.js"></script>
+}

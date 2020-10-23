@@ -1,0 +1,97 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Angel Battles";
+}
+
+<link href="~/css/cards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/realm.css?version=@Helpers.JavascriptVersion" />
+
+
+@*<div id="intro" class="intro">
+    <div data-relative-input="true" class="background" id="sceneIntro">
+        <div>
+            <img src="~/images/Angels/Michael.png" />
+        </div>
+        <div data-depth="0.5" data-limit-x="true" class="light-effects"></div>
+    </div>
+</div>*@
+
+<!-- Modal -->
+@Html.Partial("_ModalDiscord")
+
+
+<div id="realmContainer">
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Clouds - Back ****@
+        <div data-depth="0.2" data-limit-x="true" class="cloud-back"></div>
+        
+        @***** Cards ****@
+        <div id="cardsContainer" class="container-fluid cards" style="padding-top: 70px;">
+            <div class="container">
+                <div class="jumbotron ml-3 bg-transparent" >
+                    <div class="row">
+                        <div class="col align-self-center text-center">
+                            <img src="images/Site/blank.gif" data-src="images/Site/Logo.png" class="logo-realm lazy" />
+                        </div>
+                        <div class="col">
+                            <h1 class="display-5 intro-caption">Angel Battles<br />Collectible<br />Crypto Game</h1>
+                            <p class="lead">Angel Battles is a decentralized application built on the Ethereum blockchain. Collect angel, pet, and accessory cards to train, breed, and battle your way to the top of Mt. Zion, the global leaderboard. The marketplace connects players with the time, energy, skill and luck to develop powerful Angels and Pets with those who want to reach elite status as quickly as possible. <a target="_blank" href="https://medium.com/@@michael_41543/guide-to-playing-angelbattles-com-12b6beb5d9cb">Learn more!</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-divider ml-3">
+                    <div class="m-3 ml-4 mr-4">
+                        <blockquote class="card-blockquote">
+                            <h3 class="divider-title">ANGELS</h3>
+                        </blockquote>
+                        <blockquote class="card-blockquote">
+                            <p>
+                                @*To battle, every player will need an angel. Every angel is different when created with a random Battle Power within a set range. 
+                                <hr />*@
+                                A new angel card series will be released every 5 days for a total of 24 series. Once all are created there can never be any more cards created--Ever. <br />After that they can only purchased from others on the exchange.
+                            </p>
+                        </blockquote>
+                    </div>
+                </div>
+
+                @*********** ANGELS ***********@
+                @Html.Partial("_AngelRowCards", new AngelCardRowsViewModel { ShowComingSoonCards = true })
+
+                @*********** PETS ***********@
+                @Html.Partial("_PetRowCards")
+
+                @*********** ACCESSORIES ***********@
+                @Html.Partial("_AccessoryRowCards")
+            </div>
+        </div>
+
+        @***** Clouds - Front ****@
+        @*<div data-depth="0" data-limit-x="true" class="cloud-navbar"></div>*@
+        <div data-depth="0.03" data-limit-x="true" class="cloud-front"></div>
+
+        @**** Logo ****@
+        @*<div class="logo-background">
+            <a asp-controller="realm">
+                <img src="~/images/Site/Logo.png" onerror="this.src=Logo.svg;this.onerror=null;"  class="logo" />
+            </a>
+        </div>*@
+    </div>
+</div>
+
+<div id="discordButton" class="fixed-bottom hand-cursor">
+    <img id="discordImage" class="discord-button float-right mr-5" src="~/images/Site/DiscordSimple.png" />
+</div>
+
+@section scripts {
+    <environment include="Development">
+        <script type="text/javascript" src="~/js/realm.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+    <environment exclude="Development">
+        <script type="text/javascript" src="~/js/realm.min.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+
+    <script type="text/javascript" src="~/js/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="~/js/parallax.min.js"></script>
+}

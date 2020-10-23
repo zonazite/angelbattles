@@ -1,0 +1,140 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Team";
+}
+
+<link href="~/css/cards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/team.css?version=@Helpers.JavascriptVersion" />
+
+<!-- Modal -->
+@Html.Partial("_ModalWarnings")
+
+<div class="modal fade" id="modalAngelStats" tabindex="-1" role="dialog" aria-labelledby="modalLabelAngelStats" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="modalResultsTitle">Last Battle Results</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h3 id="resultText"></h3>
+                <hr class="my-4">
+                <p id="foughtAgainstText">You fought against:</p>
+                <p id="lastBattleTime">Last Battle:</p>
+                <img id="opponentImage" src="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalManageCard" tabindex="-1" role="dialog" aria-labelledby="modalLabelManageCard" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="modalResultsTitle">Manage Card</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="modal-body text-center">
+                    <div id="cannotUndoWarn" class="alert alert-warning" role="alert">Please note that these actions CANNOT be undone. Proceed with care.</div>
+                    <div id="transactionSentWarn" class="alert alert-success" role="alert" style="display: none;">Transaction was sent. The request is being mined, depending on traffic could take a few minutes to a few hours to complete.</div>
+
+                    <div id="manageCardButtons">
+                        <div class="btn-group-vertical">
+                            <button id="renamePet" type="button" class="btn btn-primary" style="display: none;">Rename Pet</button>
+                        </div>
+
+                        <div class="btn-group-vertical">
+                            <button id="transferCard" type="button" class="btn btn-danger">Transfer Card</button>
+                            @*<button id="unlockCard" type="button" class="btn btn-danger">Unlock Card</button>
+                            <button id="lockCard" type="button" class="btn btn-danger">Lock Card</button>*@
+                            <button id="deleteCard" type="button" class="btn btn-danger">Delete Card</button>
+                        </div>
+                    </div>
+
+                    <div id="transferCardContainer" style="display: none;">
+                        <div id="addressToInputContainer" class="input-group mb-3 p-1" style="border-radius: 5px;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Address To</span>
+                            </div>
+                            <input id="addressToInput" name="addressToInput" type="text" class="form-control" placeholder="0xbE8CE77812b4156dd00806623B0EC93C757e45F6" aria-label="AddressTo" aria-describedby="basic-addon1">
+                        </div>
+                        <div id="typeTransferInputContainer" class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addonTransfer">Type the word "transfer"</span>
+                            </div>
+                            <input id="typeTransferInput" type="text" class="form-control" placeholder="transfer" aria-label="TypeTransfer" aria-describedby="basic-addonTransfer">
+                        </div>
+                        <button id="transferCardConfirm" type="button" class="btn btn-danger" style="display: none;">Transfer Card</button>
+                    </div>
+
+                    <div id="deleteCardContainer" style="display: none;">
+                        <div id="typeDeleteInputContainer" class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Type the word "delete"</span>
+                            </div>
+                            <input id="typeDeleteInput" type="text" class="form-control" placeholder="delete" aria-label="TypeDelete" aria-describedby="basic-addon1">
+                        </div>
+                        <button id="deleteCardConfirm" type="button" class="btn btn-danger" style="display: none;">Delete Card</button>
+                    </div>
+
+                    <div id="renamePetCardContainer" style="display: none;">
+                        <div id="renamePetInputContainer" class="input-group mb-3 p-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addonRename">Pet name</span>
+                            </div>
+                            <input id="renamePetInput" name="renamePetInput" type="text" class="form-control" placeholder="new pet name" aria-label="RenamePet" aria-describedby="basic-addonRename">
+                        </div>
+                        <button id="renamePetCardConfirm" type="button" class="btn btn-primary">Rename Pet</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="teamContainer">
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Team - Clouds ****@
+        <div data-depth="0.04" class="team-clouds"></div>
+
+        @***** Cards ****@
+        <div  class="container-fluid cards" style="padding-top: 70px;">
+            <div id="cardsContainer" class="container">
+                <div class="pl-2">
+                    <p class="lead text-center">Your cards will appear here once the transaction is successfully mined and synced to nodes on the Ethereum blockchain.</p>
+                    <h3 class="">My Cards</h3>
+                    <hr class="my-4">
+                    <p id="warnNoCardsFound" class="alert alert-primary text-center" style="display: none;">No cards yet. <a asp-controller="realm">Let's get some cards!</a></p>
+                </div>
+                
+                <div id="angelsContainer"></div>
+
+                <div id="petsContainer"></div>
+
+                <div id="accessoriesContainer"></div>
+            </div>
+
+            @Html.Partial("_Loader")
+
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <environment include="Development">
+        <script src="~/js/team.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/team.min.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+
+    <script src="~/js/parallax.min.js"></script>
+}

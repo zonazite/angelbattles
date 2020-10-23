@@ -1,0 +1,80 @@
+﻿@model PetCardRowsViewModel
+@using AngelBattles.Utilities
+
+@{
+    var pets = Model.Pets;
+    var numberOfColsNeeded = 4;
+    var totalCounter = pets?.Count();
+    var itemCounter = 1;
+}
+
+@if (pets != null)
+{
+    @foreach (var pet in pets.GroupBy(x => x.PetId).Select(y => y.First()).OrderByDescending(z => z.PetCardSeriesId))
+    {
+        if (itemCounter % numberOfColsNeeded == 1)
+        {
+            @:<div class="row">
+        }
+
+        var cardImage = Helpers.GetPetCardSimple(pet.PetCardSeriesId, Helpers.IsGoldCard(pet.PetCardSeriesId, pet.PetId));
+
+        var isInTraining = false;
+        var lastTrainingTime = Helpers.UnixTimeStampToDateTime(pet.LastTrainingTime);
+        if (lastTrainingTime != DateTime.MinValue)
+        {
+            DateTime now = DateTime.Now;
+            DateTime yesterday = now.AddDays(-1);
+
+            isInTraining = (lastTrainingTime > yesterday && lastTrainingTime <= now);
+        }
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+            <div class="card pet-training-card @(isInTraining ? "no-pointers-events in-training" : "hand-cursor")" data-petId="@pet.PetId" data-petcardseriesid="@pet.PetCardSeriesId">
+                <img class="card-img-top" src="@cardImage" />
+                <div class="card-block-pets">
+                    @*<div class="card-text">
+                        Luck: @pet.Luck
+                    </div>*@
+
+                    @{
+
+                        <div id="inTrainingWarn" class="card-text" style="display: @(isInTraining ? "block" : "none");">
+                            <div class="form-row text-center">
+                                <div class="col-12">
+                                    <h3><span class="badge badge-warning">IN TRAINING</span></h3>
+                                    <p>Pet will be free to train in <a class="petRestingTime" data-endtime="@(isInTraining ? pet.LastTrainingTime : "")">less than 24 hours.</a></p>
+                                    <p>Select another pet or <a class="get-more" asp-controller="realm" asp-action="index" style="pointer-events:visible">get more here!</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        if (!isInTraining)
+                        {
+                            <div class="card-text card-header-break">
+                                Pet #@pet.PetId
+                            </div>
+                            <div id="petAura" class="light-text">
+                                <b>Luck: @pet.Luck</b><br />
+                                <b>Aura Red: @pet.AuraRed</b><br />
+                                <b>Aura Blue: @pet.AuraBlue</b><br />
+                                <b>Aura Yellow: @pet.AuraYellow</b><br />
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="card-footer">
+                    <b>@pet.Name</b>
+                </div>
+            </div>
+        </div>
+        if ((itemCounter % numberOfColsNeeded == 0) || ((itemCounter) == totalCounter))
+        {
+            @:</div>
+        }
+        itemCounter++;
+     }
+    <br />
+    <div class="row"></div>
+}
+

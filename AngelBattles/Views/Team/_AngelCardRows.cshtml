@@ -1,0 +1,69 @@
+﻿@model AngelCardRowsViewModel
+@using AngelBattles.Utilities
+
+<div class="card-divider-team text-center">
+    <div class="mt-3">
+        <blockquote class="card-blockquote">
+            <h3>ANGELS</h3>
+        </blockquote>
+    </div>
+</div>
+
+@{
+    var angels = Model.Angels;
+    var numberOfColsNeeded = 4;
+    var totalCounter = angels?.Count();
+    var itemCounter = 1;
+}
+
+@if (angels != null)
+{
+    @foreach (var angel in angels.GroupBy(x => x.AngelId).Select(y => y.First()).OrderByDescending(z => z.AngelCardSeriesId))
+    {
+        if (itemCounter % numberOfColsNeeded == 1)
+        {
+            @:<div class="row">
+        }
+
+        var angelCardInfo = Helpers.GetAngelCardInfo(angel.AngelCardSeriesId, angel.Aura);
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4 overlay-div">
+            <div class="card angel-card" data-cardtype="angel" data-cardid="@angel.AngelId" data-angelId="@angel.AngelId" data-angelcardseriesid="@angel.AngelCardSeriesId" data-lastbattleresult="@angel.LastBattleResult" data-lastbattletime="@angel.LastBattleTime">
+                <img class="card-img-top" src="@angelCardInfo.CardImage" />
+                <div class="card-block card-block">
+                    <figure class="profile">
+                        <img src="@angelCardInfo.GemImage" class="profile-avatar" alt="@angelCardInfo.GemAltText" />
+                    </figure>
+                    @*<div class="card-text">
+                        @cardDescription
+                    </div>*@
+                </div>
+
+                <div class="btn-group-vertical ml-3 mr-3">
+                    <button type="button" class="battleResultsAngel btn btn-secondary btn-sm">Battle results</button>
+                    <button type="button" class="manageCardAngel btn btn-danger btn-sm">Manage Card</button>
+                </div>
+
+                <div class="card-footer">
+                    <a>Angel #@angel.AngelId</a>
+                </div>
+                <div class="card-footer">
+                    <b>BP @angel.BattlePower</b>
+                    <b class="float-right">EXP @angel.Experience</b>
+                </div>
+                <div class="card-footer">
+                    <b>ETH @angel.Price</b>
+                    <p class="float-right">@angelCardInfo.RarityDescription</p>
+                </div>
+            </div>
+            <img id="award" src="~/images/Team/Award.png" class="award corner-image-award" style="display:none;" />
+        </div>
+        if ((itemCounter % numberOfColsNeeded == 0) || ((itemCounter) == totalCounter))
+        {
+            @:</div>
+        }
+        itemCounter++;
+     }
+    <div class="row"></div>
+}
+

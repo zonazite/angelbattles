@@ -1,0 +1,136 @@
+﻿@model AccessoryCardRowsViewModel
+
+@{
+    var accessories = Model.Accessories?.GroupBy(x => x.AccessoryId).Select(y => y.First()).OrderByDescending(z => z.AccessorySeriesId);
+    var numberOfColsNeeded = 4;
+    var totalCounter = accessories?.Count() ?? 0;
+    var itemCounter = 1;
+}
+
+
+@if (accessories != null)
+{
+    <button id="skipAccessorySelection" class="btn btn-danger" style="display: none;">Skip Accessory</button>
+
+    @foreach (var accessory in accessories)
+    {
+        if (itemCounter % numberOfColsNeeded == 1)
+        {
+            @:<div class="row">
+        }
+
+        var cardImage = "";
+        var cardDescription = "";
+        switch (accessory.AccessorySeriesId)
+        {
+            case 1:
+                cardImage = "images/Accessories/LeatherBracerSimple.png";
+                cardDescription = "Increase BP + 5";
+                break;
+            case 2:
+                cardImage = "images/Accessories/MetalBracersSimple.png";
+                cardDescription = "Increase BP + 15";
+                break;
+            case 3:
+                cardImage = "images/Accessories/ScholarsScrollSimple.png";
+                cardDescription = "Increase EXP + 20";
+                break;
+            case 4:
+                cardImage = "images/Accessories/CosmicScrollSimple.png";
+                cardDescription = "Increase EXP + 40";
+                break;
+            case 5:
+                cardImage = "images/Accessories/4LeafCloverSimple.png";
+                cardDescription = "Increase Pet Luck + 5";
+                break;
+            case 6:
+                cardImage = "images/Accessories/7LeafCloverSimple.png";
+                cardDescription = "Increase Pet Luck + 10";
+                break;
+            case 7:
+                cardImage = "images/Accessories/RedCollarSimple.png";
+                cardDescription = "Increaes Pet Red Aura + 6";
+                break;
+            case 8:
+                cardImage = "images/Accessories/RubyCollarSimple.png";
+                cardDescription = "Increase Pet Red Aura + 12";
+                break;
+            case 9:
+                cardImage = "images/Accessories/YellowCollarSimple.png";
+                cardDescription = "Increase Pet Yellow Aura + 6";
+                break;
+            case 10:
+                cardImage = "images/Accessories/CitrineCollarSimple.png";
+                cardDescription = "Increase Pet Yellow Aura + 12";
+                break;
+            case 11:
+                cardImage = "images/Accessories/BlueCollarSimple.png";
+                cardDescription = "Increase Pet Blue Aura + 6";
+                break;
+            case 12:
+                cardImage = "images/Accessories/SapphireCollarSimple.png";
+                cardDescription = "Increase Pet Blue Aura + 12";
+                break;
+            case 13:
+                cardImage = "images/Accessories/CarrotsSimple.png";
+                cardDescription = "Increase chance of fighting Horse Line";
+                break;
+            case 14:
+                cardImage = "images/Accessories/CricketSimple.png";
+                cardDescription = "Increase chance of fighting Lizard Line";
+                break;
+            case 15:
+                cardImage = "images/Accessories/BirdSeedSimple.png";
+                cardDescription = "Increase chance of fighting Avian Line";
+                break;
+            case 16:
+                cardImage = "images/Accessories/CatNipSimple.png";
+                cardDescription = "Increase chance of fighting Feline Line";
+                break;
+            case 17:
+                cardImage = "images/Accessories/LightningRodSimple.png";
+                cardDescription = "Increase chance of fighting Elemental";
+                break;
+            case 18:
+                cardImage = "images/Accessories/HolyLightSimple.png";
+                 cardDescription = "Increase VS battle power against fallen angels";
+                break;
+            default:
+                cardImage = "images/Angels/ComingSoonAngelSimple.png";
+                cardDescription = "This card data will be updated very soon.";
+                break;
+
+        }
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+            <div class="card accessory-battle-card hand-cursor" data-accessoryId="@accessory.AccessoryId" data-accessorycardseriesid="@accessory.AccessorySeriesId">
+                <img class="card-img-top" src="@cardImage" />
+                <div class="card-block-accessories">
+                    <div id="onLeaderboardWarnAcc" class="card-text" style="display: none;">
+                        <div class="form-row text-center">
+                            <div class="col-12">
+                                <h3><span class="badge badge-warning">ON LEADERBOARD</span></h3>
+                                <p>This accessory is currently on the leaderboard.</p>
+                                <p>Select another accessory or <a asp-controller="realm" asp-action="index" style="pointer-events:visible">get more here!</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-text card-header-break">
+                        Accessory #@accessory.AccessoryId
+                    </div>
+                    <div id="accDetails" class="card-text">
+                       <b id="accessoryCardRowDescription" class="light-text">@cardDescription</b> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        if ((itemCounter % numberOfColsNeeded == 0) || ((itemCounter) == totalCounter))
+        {
+            @:</div>
+        }
+        itemCounter++;
+     }
+    <div class="row mb-4"></div>
+}
+

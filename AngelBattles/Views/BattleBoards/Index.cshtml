@@ -1,0 +1,254 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Battle Boards";
+}
+
+<link href="~/css/cards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+<link href="~/css/battleboards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+
+<!-- Modal -->
+@Html.Partial("_ModalWarnings")
+
+<div class="modal fade" id="modalOpenFreeBattleboard" data-teamnameangelid="" tabindex="-1" role="dialog" aria-labelledby="modalOpenFreeBattleboard" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="modalResultsTitle">Open Battle Board</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div id="transactionSentWarn" class="alert alert-success" role="alert" style="display: none;">Transaction was sent. The request is being mined, depending on traffic could take a few minutes to a few hours to complete.</div>
+
+                <div id="openFreeBattleboardBodyContainer">
+                    @*---- Restrictions ----*@
+                    <div id="restrictionsContainer" class="align-self-center text-center pl-2 pr-2 pt-1 pb-1" style="border-radius: 5px;">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="freeBattleboardRestrictionsSelect">Angel Restrictions</label>
+                            </div>
+                            <select class="custom-select" id="freeBattleboardRestrictionsSelect">
+                                <option value="24" selected>No Restrictions</option>
+                                <option value="0">Barakiel only</option>
+                                @*<option value="1">Zadkiel and below</option>
+                                    <option value="2">Lucifer and below</option>
+                                    <option value="3">Michael and below</option>
+                                    <option value="4">Arel and below</option>
+                                    <option value="5">Raguel and below</option>
+                                    <option value="6">Lilith and below</option>
+                                    <option value="7">Furlac and below</option>*@
+                                <option value="8">Azazel and below</option>
+                                @*<option value="9">Eleleth and below</option>
+                                    <option value="10">Verin and below</option>
+                                    <option value="11">Ziwa and below</option>
+                                    <option value="12">Cimeriel and below</option>
+                                    <option value="13">Numinel and below</option>
+                                    <option value="14">Bat Gol and below</option>*@
+                                <option value="15">Gabriel and below</option>
+                                @*<option value="16">Metatron and below</option>
+                                    <option value="17">Rafael and below</option>*@
+                                <option value="18">Melchezidek and below</option>
+                                @*<option value="19">Semyaza and below</option>
+                                    <option value="20">Abbadon and below</option>
+                                    <option value="21">Baalzebub and below</option>
+                                    <option value="22">Ben Nez and below</option>
+                                    <option value="23">Jopiel and below</option>*@
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <button id="openFreeBattleboardConfirm" class="btn btn-primary">Let's open it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="padding-top: 13px;">
+    <div id="trainingOuterContainer" class="container">
+        <div class="pl-2">
+            <div id="battleboardGuideText" class="alert text-center" style="background-color:beige; opacity: 0.9;" role="alert">
+                Join up with other players around the world to defeat the opposite team on the battleboard! <a href="https://medium.com/@@michael_41543/detailed-training-instructions-68c6f5c01f52" target="_blank" style="text-decoration:none;">See detailed instructions.</a>
+            </div>
+            <h3 id="battleboardsTitle" class="mb-2 mt-3 mb-3">BATTLEBOARDS</h3>
+            <div id="openBattleBoardButtons" class="btn-group mb-3" style="display: none;">
+                <button id="openFreeBattleboard" type="button" class="btn-outline-primary btn btn-lg">Open Battle Board</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div id="buildYourTeamOuterContainer" class="container" style="display: none; width: 540px">
+        <div class="pl-2">
+            @*<h3 id="buildTeamTitle" class="mb-2 mb-3">BUILD YOUR TEAM</h3>*@
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm">
+                        <div>
+                            <div style="text-align: center;">
+                                <h5><b>Team 1</b></h5>
+                            </div>
+                            <div id="buildTeamContainer" class="container-fluid p-3" style="width: 150px; border: 6px dashed rgb(221, 221, 221); border-width: 3px; border-radius: 5px;">
+                                <div class="card-deck">
+                                    <div id="team1position1" class="card" data-angelid="" style="width: auto; height: 170px;">
+                                        <div id="team1position1ViewTeam" class="justify-content-center align-self-center text-center align-middle" style="display: none; background: black;">
+                                            <img class="card-img-top p-2 align-self-center" src="~/images/BattleBoards/Team1Position1.png" alt="Choose an angel to battle" style="max-width: 150px;">
+                                            <p class="m-3" style="color: white;">team ready to fight</p>
+                                        </div>
+                                        <div id="team1position1TextContainer" class="container d-flex h-100">
+                                            <div class="row justify-content-center align-self-center text-center align-middle">
+                                                <p id="chooseTeam1position1Text" class="m-3" style="display: none;"><span style="font-size: xx-large;"><b>&#43;</b></span><br /> add your team</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-deck pt-3">
+                                    <div id="team1position2" class="card" data-angelid="" style="width: auto; height: 170px;">
+                                        <div id="team1position2ViewTeam" class="justify-content-center align-self-center text-center align-middle" style="display: none; background: black;">
+                                            <img class="card-img-top p-2 align-self-center" src="~/images/BattleBoards/Team1Position2.png" alt="Choose an angel to battle" style="max-width: 150px;">
+                                            <p class="m-3" style="color: white;">team ready to fight</p>
+                                        </div>
+                                        <div id="team1position2TextContainer" class="container d-flex h-100">
+                                            <div class="row justify-content-center align-self-center text-center align-middle">
+                                                <p id="chooseTeam1position2Text" class="m-3" style="display: none;"><span style="font-size: xx-large;"><b>&#43;</b></span><br /> add your team</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-deck pt-3">
+                                    <div id="team1position3" class="card" data-angelid="" style="width: auto; height: 170px;">
+                                        <div id="team1position3ViewTeam" class="justify-content-center align-self-center text-center align-middle" style="display: none; background: black;">
+                                            <img class="card-img-top p-2 align-self-center" src="~/images/BattleBoards/Team1Position3.png" alt="Choose an angel to battle" style="max-width: 150px;">
+                                            <p class="m-3" style="color: white;">team ready to fight</p>
+                                        </div>
+                                        <div id="team1position3TextContainer" class="container d-flex h-100">
+                                            <div class="row justify-content-center align-self-center text-center align-middle">
+                                                <p id="chooseTeam1position3Text" class="m-3" style="display: none;"><span style="font-size: xx-large;"><b>&#43;</b></span><br /> add your team</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm">
+                        <div>
+                            <img src="~/images/BattleBoards/Verse.png" style="width: 110px;" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm">
+                        <div>
+                            <div style="text-align: center;">
+                                <h5><b>Team 2</b></h5>
+                            </div>
+                            <div id="buildTeamContainer" class="container-fluid p-3" style="width: 150px; border: 6px dashed rgb(221, 221, 221); border-width: 3px; border-radius: 5px;">
+                                <div class="card-deck">
+                                    <div id="team2position1" class="card" data-angelid="" style="width: auto; height: 170px;">
+                                        <div id="team2position1ViewTeam" class="justify-content-center align-self-center text-center align-middle" style="display: none; background: black;">
+                                            <img class="card-img-top p-2 align-self-center" src="~/images/BattleBoards/Team2Position1.png" alt="Choose an angel to battle" style="max-width: 150px;">
+                                            <p class="m-3" style="color: white;">team ready to fight</p>
+                                        </div>
+                                        <div id="team2position1TextContainer" class="container d-flex h-100">
+                                            <div class="row justify-content-center align-self-center text-center align-middle">
+                                                <p id="chooseTeam2position1ext" class="m-3" style="display: none;"><span style="font-size: xx-large;"><b>&#43;</b></span><br /> add your team</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-deck pt-3">
+                                    <div id="team2position2" class="card" data-angelid="" style="width: auto; height: 170px;">
+                                        <div id="team2position2ViewTeam" class="justify-content-center align-self-center text-center align-middle" style="display: none; background: black;">
+                                            <img class="card-img-top p-2 align-self-center" src="~/images/BattleBoards/Team2Position2.png" alt="Choose an angel to battle" style="max-width: 150px;">
+                                            <p class="m-3" style="color: white;">team ready to fight</p>
+                                        </div>
+                                        <div id="team2position2TextContainer" class="container d-flex h-100">
+                                            <div class="row justify-content-center align-self-center text-center align-middle">
+                                                <p id="chooseTeam2position2Text" class="m-3" style="display: none;"><span style="font-size: xx-large;"><b>&#43;</b></span><br /> add your team</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-deck pt-3">
+                                    <div id="team2position3" class="card" data-angelid="" style="width: auto; height: 170px;">
+                                        <div id="team2position3ViewTeam" class="justify-content-center align-self-center text-center align-middle" style="display: none; background: black;">
+                                            <img class="card-img-top p-2 align-self-center" src="~/images/BattleBoards/Team2Position3.png" alt="Choose an angel to battle" style="max-width: 150px;">
+                                            <p class="m-3" style="color: white;">team ready to fight</p>
+                                        </div>
+                                        <div id="team2position3TextContainer" class="container d-flex h-100">
+                                            <div class="row justify-content-center align-self-center text-center align-middle">
+                                                <p id="chooseteam2position3Text" class="m-3" style="display: none;"><span style="font-size: xx-large;"><b>&#43;</b></span><br /> add your team</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="padding-top: 13px;">
+    <div id="statusBoardContainer" class="container">
+    </div>
+</div>
+
+@Html.Partial("_Loader")
+
+@Html.Partial("_FreeBattleBoard")
+
+@Html.Partial("_VsBattle")
+
+<div class="text-center">
+    <div id="addTeamCompleted" class="container absolute-center is-responsive button-events overflow-auto" style="display: none;">
+        <div class="row align-self-center rounded" style="background-color: whitesmoke;">
+            <div class="col-md-6 pl-4 pt-4 pb-4">
+                <img id="coatOfArmsImage" src="~/images/BattleBoards/Team1CoatOfArms.png" class="mt-lg-4" style="width: 90%;" />
+            </div>
+            <div class="col-md-6 p-5">
+                <div class="row align-self-center">
+                    <div class="col-sm text-left"><h3>PREPARE YOURSELF FOR BATTLE. THERE IS A STORM OF SLAUGHTER COMING!</h3></div>
+                </div>
+                <div class="row align-self-center">
+                    <div class="col-sm text-left"><h5>Your angel and pets are being added to your team--while being mined on the Ethereum blockchain.</h5></div>
+                </div>
+                <div class="row align-self-center">
+                    <div class="col-sm text-left"><p>Depending on the network traffic your transaction could take a few minutes to several hours. Once all players have joined their respective teams, you will be able to enter the battleboard!</p></div>
+                </div>
+                <div class="row align-self-center">
+                    <div class="col-sm text-left"><p>Keep on battling and training your angels and pets in the arena to build up their EXP and AURA. To get an advantage add an Accessory to your team in battle.</p></div>
+                </div>
+                <div class="row align-self-center">
+                    <div class="col-sm text-left"><b>You don't want to lose. There can only be one winner.<br /> @*Winner takes the losers pets, and the entire pot of ETH!*@</b></div>
+                </div>
+                <br />
+                @*<div class="row justify-content-center button-events mb-3">
+                    <button id="goToAddAnotherTeammate" type="button" class="btn btn-danger btn-lg">Add more teammates</button>
+                </div>*@
+                <div class="row justify-content-center button-events mb-3">
+                    <button id="goToBattleboardMenu" type="button" class="btn btn-secondary btn-lg">Battleboard menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/battleboards.js?version=@Helpers.JavascriptVersion"></script>
+
+    <environment include="Development">
+        <script src="~/js/jscookie.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/jscookie.min.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+}

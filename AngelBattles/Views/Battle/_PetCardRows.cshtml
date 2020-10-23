@@ -1,0 +1,50 @@
+﻿@model PetCardRowsViewModel
+@using AngelBattles.Utilities
+
+@{
+    var pets = Model.Pets;
+    var numberOfColsNeeded = 4;
+    var totalCounter = pets?.Count();
+    var itemCounter = 1;
+}
+
+@if (pets != null)
+{
+    @foreach (var pet in pets.GroupBy(x => x.PetId).Select(y => y.First()).OrderByDescending(z => z.PetCardSeriesId))
+    {
+        if (itemCounter % numberOfColsNeeded == 1)
+        {
+            @:<div class="row">
+        }
+
+        var cardImage = Helpers.GetPetCardSimple(pet.PetCardSeriesId, Helpers.IsGoldCard(pet.PetCardSeriesId, pet.PetId));
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+            <div class="card pet-battle-card hand-cursor" data-petId="@pet.PetId" data-petcardseriesid="@pet.PetCardSeriesId">
+                <img class="card-img-top" src="@cardImage" />
+                <div class="card-block-pets">
+                    <div class="card-text card-header-break">
+                        Pet #@pet.PetId
+                    </div>
+                    <div class="card-text">
+                        <b class="light-text">Luck: @pet.Luck</b><br />
+                        <b class="light-text">Aura Red: @pet.AuraRed</b><br />
+                        <b class="light-text">Aura Blue: @pet.AuraBlue</b><br />
+                        <b class="light-text">Aura Yellow: @pet.AuraYellow</b><br />
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <b>@pet.Name</b>
+                </div>
+            </div>
+        </div>
+        if ((itemCounter % numberOfColsNeeded == 0) || ((itemCounter) == totalCounter))
+        {
+            @:</div>
+        }
+        itemCounter++;
+     }
+    <br />
+    <div class="row"></div>
+}
+

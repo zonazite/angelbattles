@@ -1,0 +1,126 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Breeding";
+}
+
+<link href="~/css/cards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/breeding.css?version=@Helpers.JavascriptVersion" />
+
+<!-- Modal -->
+@Html.Partial("_ModalWarnings")
+
+<div>
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Team - Clouds ****@
+        <div data-depth="0" class="purgatory-rocks"></div>
+
+        @***** Cards ****@
+        <div class="container-fluid cards" style="padding-top: 70px;">
+            <div id="breedingContainer" class="container">
+                <div class="pl-2">
+                    <div class="alert text-center" style="background-color:beige; opacity: 0.9;" role="alert">
+                        Mate two of your pets and create a powerful new ally. A new pet will be born, but will it be an epic pet?! <a href="https://medium.com/@@michael_41543/breeding-instructions-1bfebaa290f7" target="_blank" style="text-decoration:none;">See detailed instructions.</a>
+                    </div>
+                    <div id="petWindowContainer" class="container-fluid p-3 button-events battle-container-sizing" style="background-color: black; border: dashed; border-width: 1px; border-color: black; border-radius: 5px; display:none;">
+                        <div class="align-self-center text-center">
+                            <div id="petNameContainer" class="input-group p-1" style="border-radius: 5px;">
+                                <div class="input-group-prepend"> 
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Pet Name</span>
+                                </div>
+                                <input id="petNameInput" name="petNameInput" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                        </div>
+                        <div class="card-deck pt-3">
+                            <div id="choosePetOne" class="card" style="width: auto; height: 170px;">
+                                <div class="container d-flex h-100">
+                                    <div class="row justify-content-center align-self-center text-center align-middle">
+                                        <p id="choosePetOneText" class="m-4 p-2" style="display: block; border-radius: 5px;">choose your pet to breed</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="petOneToBreed" class="card hand-cursor" data-petid="" style="display: none;">
+                                <img id="petOneImage" class="card-img-top p-1" src="~/images/Site/blank.gif" />
+                            </div>
+                            <div id="choosePetTwo" class="card" style="width: auto; height: 170px;">
+                                <div class="container d-flex h-100">
+                                    <div class="row justify-content-center align-self-center text-center align-middle">
+                                        <p id="choosePetTwoText" class="m-4 p-2" style="display: none; border-radius: 5px;">choose your pet to breed</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="petTwoToBreed" class="card hand-cursor" data-petid="" style="display: none;">
+                                <img id="petTwoImage" class="card-img-top p-1" src="~/images/Site/blank.gif" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="beginBreeding" class="form-row text-center mt-4" style="display: none;">
+                        <div class="col-12">
+                            <button id="beginBreedingButton" type="button" class="btn btn-danger btn-lg">Begin Breeding!</button>
+                        </div>
+                    </div>
+
+                    <div id="petsContainer" style="display: none;"></div>
+
+                    <div>
+                        <p id="warnNoCardsFoundPet" class="alert alert-primary text-center mt-5" style="display: none;">No pet cards yet. <a asp-controller="realm">Let's get some cards!</a></p>
+                    </div>
+
+                    <div>
+                        <p id="warnNoCardsFound" class="alert alert-primary text-center mt-5" style="display: none;">You haven't won any wild common pets yet. <a asp-controller="battle">Defeat one and it will become part of your team!</a></p>
+                        <p id="warnNeedOneMorePetCard" class="alert alert-primary text-center mt-5" style="display: none;">You need one more wild common pets to breed. <a asp-controller="battle">Defeat one and it will become part of your team!</a></p>
+                    </div>
+
+                </div>
+            </div>
+
+            @Html.Partial("_Loader")
+
+        </div>
+
+        <div class="card-data text-center">
+            <div id="breedingCompleted" class="container absolute-center is-responsive button-events overflow-auto" style="display: none;">
+                <div class="row align-self-center rounded parent-opacity">
+                    <div class="col-md-6 pl-4 pt-4 pb-4">
+                        <img src="~/images/Breeding/LovePotion.svg" class="mt-lg-4" style="width: 90%;" />
+                    </div>
+                    <div class="col-md-6 p-5">
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h2>LOVE IS IN THE AIR!</h2></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h4>The two pets you've selected are trying to conceive.</h4></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Depending on the network traffic your transaction could take a few minutes to several hours. Once mined the results will appear in the <a asp-controller="Team">My Team</a> page.</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><b>Once the pets you've selected begin breeding they can't be rebreed for 7 days. This helps protect the rarity of the cards, especially the Epic Pet cards.</b></div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center button-events mb-3">
+                            <button id="keepBreeding" type="button" class="btn btn-danger btn-lg">Let's breed other pets!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    <script src="~/js/jquery.countdown.min.js"></script>
+
+    <environment include="Development">
+        <script src="~/js/breeding.js?version=@Helpers.JavascriptVersion"></script>
+        <script src="~/js/jscookie.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/breeding.min.js?version=@Helpers.JavascriptVersion"></script>
+        <script src="~/js/jscookie.min.js"></script>
+    </environment>
+
+    <script src="~/js/parallax.min.js"></script>
+}

@@ -1,0 +1,81 @@
+﻿@model PetCardRowsViewModel
+@using AngelBattles.Utilities
+
+@{
+    var excludedIds = new List<int> { 1, 2, 3, 4, 13, 14, 15, 16 };
+    var pets = Model.Pets.Where(x => !excludedIds.Contains(x.PetCardSeriesId));
+    var numberOfColsNeeded = 4;
+    var totalCounter = pets?.Count();
+    var itemCounter = 1;
+}
+
+@if (pets != null)
+{
+    foreach (var pet in pets.GroupBy(x => x.PetId).Select(y => y.First()).OrderByDescending(z => z.PetCardSeriesId))
+    {
+        if (itemCounter % numberOfColsNeeded == 1)
+        {
+            @:<div class="row">
+        }
+
+        var cardImage = Helpers.GetPetCardSimple(pet.PetCardSeriesId, Helpers.IsGoldCard(pet.PetCardSeriesId, pet.PetId));
+
+        var isInBreeding = false;
+        var lastBreedingTime = Helpers.UnixTimeStampToDateTime(pet.LastBreedingTime);
+        if (lastBreedingTime != DateTime.MinValue)
+        {
+            DateTime now = DateTime.Now;
+            DateTime yesterday = now.AddDays(-7).AddHours(-2);
+
+            isInBreeding = (lastBreedingTime > yesterday && lastBreedingTime <= now);
+        }
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+            <div class="card pet-breeding-card @(isInBreeding ? "no-pointers-events in-breeding" : "hand-cursor")" data-petId="@pet.PetId" data-petcardseriesid="@pet.PetCardSeriesId">
+                <img class="card-img-top" src="@cardImage" />
+                <div class="card-block-pets">
+                    @*<div class="card-text">
+                        Luck: @pet.Luck
+                    </div>*@
+
+                    @{
+
+                        <div id="inBreedingWarn" class="card-text" style="display: @(isInBreeding ? "block" : "none");">
+                            <div class="form-row text-center">
+                                <div class="col-12">
+                                    <h3><span class="badge badge-warning">RESTING</span></h3>
+                                    <p>Pet will be free to breed again in <a class="petRestingTime" data-endtime="@(isInBreeding ? pet.LastBreedingTime : "")">less than 7 days.</a></p>
+                                    <p>Select another pet or <a asp-controller="battle" asp-action="index" style="pointer-events:visible">battle</a> more to try to defeat a wild common pet to become part of your team!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        if (!isInBreeding)
+                        {
+                            <div class="card-text card-header-break">
+                                Pet #@pet.PetId
+                            </div>
+                            <div id="petAura" class="light-text">
+                                <b>Luck: @pet.Luck</b><br />
+                                <b>Aura Red: @pet.AuraRed</b><br />
+                                <b>Aura Blue: @pet.AuraBlue</b><br />
+                                <b>Aura Yellow: @pet.AuraYellow</b><br />
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="card-footer">
+                    <b>@pet.Name</b>
+                </div>
+            </div>
+        </div>
+        if ((itemCounter % numberOfColsNeeded == 0) || ((itemCounter) == totalCounter))
+        {
+            @:</div>
+        }
+        itemCounter++;
+     }
+    <br />
+    <div class="row"></div>
+}
+

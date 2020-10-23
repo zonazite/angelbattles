@@ -1,0 +1,191 @@
+﻿<div id="FightContainer" class="container button-events" style="display: none;">
+    <div id="vsBattleInfo" class="pl-2">
+        <div class="alert text-center" style="background-color:beige; opacity: 0.9;" role="alert">
+            Choose your cards to challenge for the next position on the leaderboard. You do not earn EXP for leaderboard battles. <br />You can still train, and battle in the arena while challenging on the leaderboard.
+        </div>
+    </div>
+
+    <div id="vsContainer" data-leaderboardid="" class="container-fluid p-3 mb-3" style="width: 70%; background-color: black; border: dashed; border-width: 1px; border-color: black; border-radius: 5px;">
+        <div class="card-deck">
+            <div id="angelToBattleOpponent" class="card">
+                <img id="angelImageOpponent" class="card-img-top" src="~/images/Site/blank.gif" />
+                <div class="card-block">
+                    <figure class="profile">
+                        <img id="angelAuraGemOpponent" src="~/images/Site/blank.gif" class="profile-avatar" alt="Aura" />
+                    </figure>
+                    <div class="card-text">
+                        <p class="mt-2 small">BP <b id="angelBPOpponent"></b></p>
+                        <p class="mt-2 small">EXP <b id="angelEXPOpponent"></b></p>
+                    </div>
+                </div>
+            </div>
+            <div id="petToBattleOpponent" class="card">
+                <img id="petImageOpponent" class="card-img-top" src="~/images/Site/blank.gif" />
+                <div class="card-block-pets">
+                    <div class="card-text">
+                        <div class="row small">
+                            <div class="col-lg-8">LUCK</div>
+                            <div class="col-lg-4 float-right"><b id="petLuckOpponent"></b></div>
+                        </div>
+                        <div class="row small">
+                            <div class="col-lg-8">RED AURA</div>
+                            <div class="col-lg-4 float-right"><b id="petRedAuraOpponent"></b></div>
+                        </div>
+                        <div class="row small">
+                            <div class="col-lg-8">BLUE AURA</div>
+                            <div class="col-lg-4 float-right"><b id="petBlueAuraOpponent"></b></div>
+                        </div>
+                        <div class="row small">
+                            <div class="col-lg-8">YELLOW AURA</div>
+                            <div class="col-lg-4 float-right"><b id="petYellowAuraOpponent"></b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="accessoryToBattleOpponent" class="card" data-accessoryid="" style="width: auto; height: auto; position: relative;">
+                <img id="accessoryImageOpponent" class="card-img-top" src="~/images/Site/blank.gif" />
+                <div id="accessoryRow" class="card-block">
+                    <div class="card-text">
+                        <p class="mt-2 small"><b id="accessoryTextOpponent"></b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        @*---- VS -----*@
+        <div id="vsCommandContainer" class="bg-danger align-self-center text-center pl-2 pr-2 pt-1 pb-1" style="border-radius: 5px;">
+            <h5 id="vsPlaceholder"><b>- vs -</b></h5>
+            <h4 id="beginBattleButton" class="hand-cursor mt-1" style="display: none;">Click to BEGIN FIGHT!</h4>
+        </div>
+        <br />
+
+        <div class="card-deck">
+            <div id="chooseAngel" class="card" style="width: auto; height: 170px;">
+                <div class="container d-flex h-100">
+                    <div class="row justify-content-center align-self-center text-center align-middle">
+                        <p id="chooseAngelText" class="m-3 p-2 bg-primary text-light" style="border-radius: 5px;">choose your angel to battle</p>
+                    </div>
+                </div>
+            </div>
+            <div id="angelToBattle" class="card hand-cursor" data-angelid="" style="display: none;">
+                <img id="angelImageVsBattle" class="card-img-top" src="~/images/Site/blank.gif" />
+                <div class="card-block">
+                    <figure class="profile">
+                        <img id="angelAuraGemVsBattle" src="~/images/Site/blank.gif" class="profile-avatar" alt="Aura" />
+                    </figure>
+                    <div class="card-text">
+                        <p class="mt-2 small">BP <b id="angelBPVsBattle"></b></p>
+                        <p class="mt-2 small">EXP <b id="angelEXPVsBattle"></b></p>
+                    </div>
+                </div>
+            </div>
+            <div id="choosePet" class="card" style="width: auto; height: 170px;">
+                <div class="container d-flex h-100">
+                    <div class="row justify-content-center align-self-center text-center align-middle">
+                        <p id="choosePetText" class="m-4 p-2 bg-primary text-light" style="display: none; border-radius: 5px;">choose your pet to battle</p>
+                    </div>
+                </div>
+            </div>
+            <div id="petToBattle" class="card hand-cursor" data-petid="" style="display: none;">
+                <img id="petImageVsBattle" class="card-img-top" src="~/images/Site/blank.gif" />
+                <div class="card-block-pets">
+                    <div class="card-text">
+                        <div class="row small">
+                            <div class="col-lg-8">LUCK</div>
+                            <div class="col-lg-4 float-right"><b id="petLuckVsBattle"></b></div>
+                        </div>
+                        <div class="row small">
+                            <div class="col-lg-8">RED AURA</div>
+                            <div class="col-lg-4 float-right"><b id="petRedAuraVsBattle"></b></div>
+                        </div>
+                        <div class="row small">
+                            <div class="col-lg-8">BLUE AURA</div>
+                            <div class="col-lg-4 float-right"><b id="petBlueAuraVsBattle"></b></div>
+                        </div>
+                        <div class="row small">
+                            <div class="col-lg-8">YELLOW AURA</div>
+                            <div class="col-lg-4 float-right"><b id="petYellowAuraVsBattle"></b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="chooseAccessory" class="card" style="width: auto; height: 170px;">
+                <div id="chooseAccessoryGranted" class="container d-flex h-100">
+                    <div class="row justify-content-center align-self-center text-center align-middle">
+                        <p id="chooseAccessoryText" class="m-2 p-2 bg-primary text-light" style="display: none; border-radius: 5px;">choose an accessory (optional)</p>
+                    </div>
+                </div>
+                <button id="skipAccessory" type="button" class="skip-accessory btn btn-secondary btn-sm" style="display: none;">Skip</button>
+            </div>
+            <div id="accessoryToBattle" class="card" data-accessoryid="" style="width: auto; height: auto; position: relative; display: none;">
+                <img id="accessoryImageVsBattle" class="card-img-top" src="~/images/Site/blank.gif" />
+                <div id="accessoryRowVsBattle" class="card-block">
+                    <div class="card-text">
+                        <p class="mt-2 small"><b id="accessoryTextVsBattle"></b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="angelsContainer" style="display: none;"></div>
+    <div id="angelsBarakielOnlyContainer" style="display: none;">
+        <div class="card-divider-team text-center">
+            <div class="mt-3">
+                <blockquote class="card-blockquote">
+                    <b>Barakiel Only Battle</b> - <a asp-controller="realm">Let's get some more angels!</a>
+                </blockquote>
+            </div>
+        </div>
+        <div id="angelsBarakielOnlyContainerCards"></div>
+    </div>
+    <div id="angelsAzaelAndBelowContainer" style="display: none;">
+        <div class="card-divider-team text-center">
+            <div class="mt-3">
+                <blockquote class="card-blockquote">
+                    <b>Azael and Below Battle</b> - <a asp-controller="realm">Let's get some more angels!</a>
+                </blockquote>
+            </div>
+        </div>
+        <div id="angelsAzaelAndBelowContainerCards"></div>
+    </div>
+    <div id="angelsGabrielAndBelowContainer" style="display: none;">
+        <div class="card-divider-team text-center">
+            <div class="mt-3">
+                <blockquote class="card-blockquote">
+                    <b>Gabriel and Below Battle</b> - <a asp-controller="realm">Let's get some more angels!</a>
+                </blockquote>
+            </div>
+        </div>
+        <div id="angelsGabrielAndBelowContainerCards"></div>
+    </div>
+    <div id="angelsMelchizedekAndBelowContainer" style="display: none;">
+        <div class="card-divider-team text-center">
+            <div class="mt-3">
+                <blockquote class="card-blockquote">
+                    <b>Melchizedek and Below Battle</b> - <a asp-controller="realm">Let's get some more angels!</a>
+                </blockquote>
+            </div>
+        </div>
+        <div id="angelsMelchizedekAndBelowContainerCards"></div>
+    </div>
+
+    <div>
+        <p id="warnNoCardsFoundAngel" class="alert alert-primary text-center mt-5" style="display: none;">No angel cards yet. <a asp-controller="realm">Let's get some angels!</a></p>
+    </div>
+
+    <div id="petsContainer" style="display: none;"></div>
+
+    <div>
+        <p id="warnNoCardsFoundPet" class="alert alert-primary text-center mt-5" style="display: none;">No pet cards yet. <a asp-controller="realm">Let's get some pets!</a></p>
+    </div>
+
+    <div id="accessoriesContainer" style="display: none;"></div>
+
+    <div id="warnNoCardsFoundAccessory" style="display: none;">
+        <p class="alert alert-primary text-center mt-5">No accessory cards yet--get some to increase your battle strength, or click 'Skip'. <a asp-controller="realm">Let's get some accessories!</a></p>
+        <button id="skipAccessory" type="button" class="skip-accessory btn btn-danger text-center btn-lg">Skip</button>
+    </div>
+
+</div>

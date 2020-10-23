@@ -1,0 +1,47 @@
+﻿@using AngelBattles.Utilities
+
+@model AngelCardRowsViewModel
+
+@{
+    var angels = Model.Angels;
+    var numberOfColsNeeded = 4;
+    var totalCounter = angels?.Count();
+    var itemCounter = 1;
+}
+
+@if (angels != null)
+{
+    @foreach (var angel in angels.GroupBy(x => x.AngelId).Select(y => y.First()).OrderByDescending(z => z.AngelCardSeriesId))
+    {
+        if (itemCounter % numberOfColsNeeded == 1)
+        {
+            @:<div class="row">
+        }
+
+        var angelCardInfo = Helpers.GetAngelCardInfo(angel.AngelCardSeriesId, angel.Aura);
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4 angel-training-card" data-angelId="@angel.AngelId" data-angelcardseriesid="@angel.AngelCardSeriesId">
+            <div class="card hand-cursor">
+                <img class="card-img-top" src="@angelCardInfo.CardImage" />
+                <div class="card-block card-block-training">
+                    <figure class="profile">
+                        <img src="@angelCardInfo.GemImage" class="aura-gem profile-avatar" alt="@angelCardInfo.GemAltText" />
+                    </figure>
+                </div>
+                <div class="card-footer">
+                    <a>Angel #@angel.AngelId</a>
+                </div>
+                <div class="card-footer">
+                    <b>BP @angel.BattlePower</b>
+                    <b class="float-right">EXP @angel.Experience</b>
+                </div>
+            </div>
+        </div>
+        if ((itemCounter % numberOfColsNeeded == 0) || ((itemCounter) == totalCounter))
+        {
+            @:</div>
+        }
+        itemCounter++;
+     }
+}
+

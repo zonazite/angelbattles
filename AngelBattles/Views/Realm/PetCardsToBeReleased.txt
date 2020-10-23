@@ -1,0 +1,51 @@
+﻿<div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                        <div class="card">
+                            <img class="card-img-top" src="~/images/Pets/AngryKittyCardSimple.svg" />
+                            <div class="card-block">
+                                @*<figure class="profile">
+                                    <img src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif" class="profile-avatar" alt="">
+                                </figure>*@
+                                <div class="card-text">
+                                    An archangel in God's army in charge of overseeing the Spirits of Vengeance.
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <b>1 ETH</b>
+                                <a class="float-right">245 sold</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                        <div class="card">
+                            <img class="card-img-top" src="~/images/Pets/HorseCardSimple.svg" />
+                            <div class="card-block">
+                                @*<figure class="profile">
+                                    <img src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif" class="profile-avatar" alt="">
+                                </figure>*@
+                                <div class="card-text">
+                                    Zadkiel was an archangel in God's army in charge of overseeing the Spirits of Vengeance.
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <b>1 ETH</b>
+                                <a class="float-right">245 sold</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                        <div class="card">
+                            <img class="card-img-top" src="~/images/Pets/ParakeetCardSimple.svg" />
+                            <div class="card-block">
+                                @*<figure class="profile">
+                                    <img src="http://success-at-work.com/wp-content/uploads/2015/04/free-stock-photos.gif" class="profile-avatar" alt="">
+                                </figure>*@
+                                <div class="card-text">
+                                    Zadkiel was an archangel in God's army in charge of overseeing the Spirits of Vengeance.
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <b>1 ETH</b>
+                                <a class="float-right">245 sold</a>
+                            </div>
+                        </div>
+                    </div>

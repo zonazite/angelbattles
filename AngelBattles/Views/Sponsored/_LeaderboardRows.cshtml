@@ -1,0 +1,206 @@
+﻿@model SponsoredLeaderboardRowsViewModel
+@using AngelBattles.Utilities
+
+@{
+    var sponsoredLeaderboard = Model.SponsoredLeaderboard;
+    var sponsoredLeaderboardTeams = Model.SponsoredLeaderboardTeams.ToList();
+    var uniqueLeaderboardIds = Model.UniqueLeaderboardIds;
+}
+
+<div class="pl-2">
+    
+    <div>
+
+        @foreach (var uniqueLeaderboardId in uniqueLeaderboardIds)
+        {
+            var leaderboardData = sponsoredLeaderboard.FirstOrDefault(x => x.LeaderboardId == uniqueLeaderboardId);
+            if (leaderboardData != null)
+            {
+                var teamCount = 0;
+                <div class="singleLeaderboardContainer bg-dark pt-2 px-2 px-md-3 text-center text-white overflow-hidden" style="border-radius: 5px 5px 5px 5px;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                @{ var linkUrl = ""; var message = ""; }
+                                @if (leaderboardData.LeaderboardId == 0)
+                                {
+                                    linkUrl = "https://exchange.projectwyvern.com/orders?schema=AngelBattles";
+                                    message = leaderboardData.Message;
+                                    <a href="@linkUrl" target="_blank"><img class="sponsorImage pl-3 pr-3 pb-3" style="height: 200px; width: 200px;" src="~/public/sponsors/WyvernLogo.png" /></a>
+                                }
+                                else if (leaderboardData.LeaderboardId == 1)
+                                {
+                                    message = leaderboardData.Message;
+                                    linkUrl = "http://www.marieblog.com";
+                                    <a href="@linkUrl" target="_blank"><img class="sponsorImage pl-3 pr-3 pb-3" style="height: 200px; width: 200px;" src="~/public/sponsors/MarieBlogLogo.png" /></a>
+                                }
+                                else
+                                {
+                                    linkUrl = leaderboardData.Message.Split('~', '^')[1];
+
+                                    message = leaderboardData.Message.Replace($"~{linkUrl}^", "");
+                                    var srcLocation = $"/public/sponsors/{leaderboardData.LeaderboardId}.png";
+
+                                    var linkUri = new UriBuilder(linkUrl).Uri;
+                                    linkUrl = linkUri.AbsoluteUri;
+
+                                    <a href="@linkUrl" target="_blank"><img class="sponsorImage pl-3 pr-3 pb-3" style="max-height: 200px; max-width: 200px;" src="@srcLocation" onerror='this.onerror = null; this.src="/images/Site/CoinsStacked.png"' /></a>
+                                }
+                            </div>
+                            <div class="col-md-7">
+                                <div class="my-2 py-2">
+                                    <h2 class="display-5"><a class="prizeAmount">@leaderboardData.Prize</a> ETH Prize</h2>
+                                    <div class="endCountDownTime text-center" data-starttime="@leaderboardData.StartTime" data-endtime="@leaderboardData.EndTime"></div>
+                                    <p class="sponsorMessage lead"><h5><a href="@linkUrl" target="_blank" class="boxhead">@message</a></h5></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    @*<div class="bg-light box-shadow mx-auto" style="height: 150px; border-radius: 5px 5px 0 0;">
+                        <a class="sponsorUrl" href="http://www.marieblog.com" target="_blank"><img class="sponsorImage" src="~/public/sponsors/marieblog2.jpg" style="height: 100%; width: 100%;" /></a>
+                    </div>*@
+                    <div class="sponsorContainer pb-2 mb-4">
+                        
+
+                        <button type="button" class="claimMedal btn-success btn btn-sm" data-islive="@leaderboardData.IsLive" data-leaderboardid="@leaderboardData.LeaderboardId" data-medalclaimed="@leaderboardData.MedalsClaimed" style="display: @(leaderboardData.IsLive == "false" && leaderboardData.MedalsClaimed == "false" ? "block" : "none");">Claim medals</button>
+
+                        <table class="table table-striped table-responsive text-dark" data-leaderboardid="@leaderboardData.LeaderboardId" style="background-color: whitesmoke; opacity: 0.9;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Team</th>
+                                    <th scope="col">Angel</th>
+                                    <th scope="col">Pet</th>
+                                    <th scope="col">Accessory</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < 4; i++)
+                                {
+                                    var currentTeam = sponsoredLeaderboardTeams.FirstOrDefault(x => x.LeaderboardId == uniqueLeaderboardId && x.Rank == i);
+                                    if (currentTeam != null)
+                                    {
+                                        var lastPosition = "last-position";
+                                        <tr class="leaderboardRow @(i == 3 ? lastPosition : "")" data-rankPosition="@currentTeam.Rank" data-islive="@leaderboardData.IsLive" data-ownerid="" data-angelseriesid="" data-angelid="@currentTeam.AngelId" data-petseriesid="" data-petid="@currentTeam.PetId" data-accessoryseriesid="" data-accessoryid="@currentTeam.AccessoryId">
+                                            <th scope="row"><h4 class="rankPosition">@(i + 1)</h4></th>
+                                            <td style="width:40%; text-align: left;">
+                                                <b class="teamName"></b>
+                                                <p class="ownerAddress small"></p>
+                                                @if (i != 0)
+                                                {
+                                                    if (leaderboardData.IsLive == "true")
+                                                    {
+                                                        <button type="button" class="challengeNextPosition btn-primary btn btn-sm mb-2">Challenge next position!</button><br />
+                                                    }
+                                                }
+                                                <button type="button" class="addTeamName btn-primary btn btn-sm " style="display: none;">Set team name</button>
+                                            </td>
+                                            <td>
+                                                @*---- Angel-----*@
+                                                <div class="container bg-white float-left" style="border-radius: 5px;">
+                                                    <div class="row">
+                                                        <div class="col overlay-div">
+                                                            <img src="~/images/Site/blank.gif" class="angelImage mt-1 mb-1 ml-1" style="height: 115px; width: 115px;" />
+                                                            <img src="~/images/Site/blank.gif" class="angelAuraGem corner-image gem-style" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <ul class="list-group mt-3" style="width: 100%;">
+                                                            <li class="list-group-item">Angel #<a>@currentTeam.AngelId</a></li>
+                                                            <li class="list-group-item">BP <b class="angelBP"></b></li>
+                                                            <li class="list-group-item">EXP <b class="angelEXP"></b></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="petGoldContainer">
+                                                @*---- Pet-----*@
+                                                <div class="container bg-white float-left" style="border-radius: 5px; width: 330px;">
+                                                    <div class="row">
+                                                        <div class="col overlay-div">
+                                                            <img src="~/images/Site/blank.gif" class="petImage mt-1 mb-1 ml-1" style="height: 115px; width: 100%;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <ul class="list-group mt-3" style="width: 100%;">
+                                                            <li class="list-group-item" style="border-bottom: none;">Pet #<a>@currentTeam.PetId</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="float-left" style="width: 50%;">
+                                                            <ul class="list-group" style="width: 100%;">
+                                                                <li class="list-group-item">
+                                                                    LUCK <b class="petLuck"></b>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    RED Aura <b class="petRedAura"></b>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="float-right" style="width: 50%;">
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item">
+                                                                    BLUE Aura <b class="petBlueAura"></b>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    YELLOW Aura <b class="petYellowAura"></b>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @*---- Accessory-----*@
+                                                <div class="accessoryItemContainer container bg-white float-left" style="border-radius: 5px;">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <img src="~/images/Site/blank.gif" class="accImage mt-1 mb-1 ml-1" style="height: 115px; width: 100px;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <ul class="list-group mt-3" style="width: 100%;">
+                                                            <li class="list-group-item"><div>Acc #@currentTeam.AccessoryId</div></li>
+                                                            <li class="list-group-item"><div class="accText"></div></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    teamCount++;
+                                }
+                            </tbody>
+                        </table>
+                        @if (leaderboardData.IsLive == "true")
+                        {
+                            var restrictCardSeriesId = -1;
+                            switch (leaderboardData.Prize)
+                            {
+                                case "0.01":
+                                    restrictCardSeriesId = 0;
+                                    break;
+                                case "0.05":
+                                    restrictCardSeriesId = 1;
+                                    break;
+                                case "0.1":
+                                    restrictCardSeriesId = 2;
+                                    break;
+                                case "0.25":
+                                    restrictCardSeriesId = 3;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            <button type="button" data-restrictcardseriesid="@restrictCardSeriesId" class="challengeLastPosition btn-primary btn btn-lg btn-block align-self-center text-center mb-3">Challenge Last Position!</button>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

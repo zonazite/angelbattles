@@ -1,0 +1,203 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Sponsored Battles";
+}
+
+<link href="~/css/cards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+<link href="~/css/sponsored.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+
+<a name="top" id="top"></a>
+
+<!-- Modal -->
+@Html.Partial("_ModalWarnings")
+
+<div class="modal fade" id="modalAddTeamName" data-teamnameangelid="" tabindex="-1" role="dialog" aria-labelledby="modalAddTeamName" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="modalResultsTitle">Set Team Name</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                @*---- Team Name -----*@
+                <div id="teamNameContainer" class="align-self-center text-center pl-2 pr-2 pt-1 pb-1" style="border-radius: 5px;">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Team Name</span>
+                        </div>
+                        <input id="teamNameInput" name="teamNameInput" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+                <br />
+                <button id="addTeamNameConfirm" class="btn btn-primary">Let's set it!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCreateSponsoredBattle" data-teamnameangelid="" tabindex="-1" role="dialog" aria-labelledby="modalCreateSponsoredBattle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="modalResultsTitle">Create Sponsored Battle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div id="createSponshipDataContainer">
+                    @*---- Sponsorship ----*@
+                    <div id="sponsorshipAmountContainer" class="align-self-center text-center pl-2 pr-2 pt-1 pb-1" style="border-radius: 5px;">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="sponsorshipAmountSelect">Sponsorship (ETH)</label>
+                            </div>
+                            <select class="custom-select" id="sponsorshipAmountSelect">
+                                <option selected>Choose...</option>
+                                <option value="0.01">0.01</option>
+                                <option value="0.05">0.05</option>
+                                <option value="0.1">0.1</option>
+                                <option value="0.25">0.25</option>
+                                <option value="0.5">0.5</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    @*---- Number of Days ----*@
+                    <div id="numberOfDaysContainer" class="align-self-center text-center pl-2 pr-2 pt-1 pb-1" style="border-radius: 5px;">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="numberOfDaysSelect">Duration (Days)</label>
+                            </div>
+                            <select class="custom-select" id="numberOfDaysSelect">
+                                <option selected>Choose...</option>
+                                <option value="4">Four</option>
+                                <option value="5">Five</option>
+                                <option value="6">Six</option>
+                                <option value="7">Seven</option>
+                                <option value="8">Eight</option>
+                                <option value="9">Nine</option>
+                                <option value="10">Ten</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    @*---- Message -----*@
+                    <div id="messageContainer" class="align-self-center text-center pl-2 pr-2 pt-1 pb-1" style="border-radius: 5px;">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Message</span>
+                            </div>
+                            <input id="messageInput" name="messageInput" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+
+                    @*---- URL -----*@
+                    <div id="urlContainer" class="align-self-center text-center pl-2 pr-2 pt-1 pb-1" style="border-radius: 5px;">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-url">Url</span>
+                            </div>
+                            <input id="urlInput" name="urlInput" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-url">
+                        </div>
+                    </div>
+
+                    @*----- Upload logo ------*@
+                    <div id="logoContainer" class="align-self-center text-center pl-2 pr-2 pt-1 pb-1" style="border-radius: 5px;">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Logo</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="logoInput" accept="image/png" name="logoInput" onchange="$(this).next().after().text($(this).val().split('\\').slice(-1)[0])" />
+                                <label class="custom-file-label" for="logoInput">Choose file</label>
+                            </div>
+                        </div>
+                     </div>
+
+                        @*----- Button to Create -----*@
+                        <br />
+                        <button id="addSponsoredLeaderboardConfirm" class="btn btn-primary">Let's create it!</button>
+                    </div>
+
+                <div id="transactionSentWarn" class="alert alert-success" role="alert" style="display: none;">Transaction was sent. The request is being mined, depending on traffic could take a few minutes to a few hours to complete. <br /><br />Thank you for your sponsorship--angels and monsters have been prepping for battle!</div>
+                <div id="transactionFailedWarn" class="alert alert-danger" role="alert" style="display: none;">Transaction failed. Please try again in a few minutes, or contact the Angel Battles team on Discord.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Leaderboard - Mountains ****@
+        <div data-depth="0" class="leaderboard-mountains"></div>
+
+        @***** Cards ****@
+        <div class="leaderboard">
+            <div class="container-fluid cards button-events" style="padding-top: 70px; z-index: 1000;">
+                <div id="sponsoredHeaderContainer" class="container">
+                    <div class="alert text-center" style="background-color:beige; opacity: 0.9;" role="alert">
+                        Ready to fight?! Let's win some Ethereum. <a href="https://medium.com/@@michael_41543/medals-and-sponsored-leaderboards-earn-eth-for-battling-7086bbc2e7a" target="_blank" style="text-decoration:none;">See detailed instructions.</a>
+                    </div>
+                    <h3 class="mb-2 mt-3">SPONSORED BATTLES</h3>
+                    <button id="openSponsoredBattle" type="button" class="btn-outline-primary btn btn-lg btn-block align-self-center text-center mb-3">Create Sponsored Battle</button>
+                    <div id="sponsoredContainer" style="display: none;"></div>
+                </div>
+
+                @Html.Partial("_Loader")
+
+                @Html.Partial("_VsBattle")
+            </div>
+        </div>
+
+        <div class="card-data text-center">
+            <div id="battleCompleted" class="container absolute-center is-responsive button-events overflow-auto" style="display: none;">
+                <div class="row align-self-center rounded" style="background-color: whitesmoke;">
+                    <div class="col-md-6 pl-4 pt-4 pb-4">
+                        <img src="~/images/Site/MoneyBag.png" class="mt-lg-4" style="width: 90%;" />
+                    </div>
+                    <div class="col-md-6 p-5">
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h3>THEY CAN TAKE OUR LIVES, BUT THEY CAN'T TAKE OUR PLACE ON THE LEADERBOARD!</h3></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h5>Your angel and pets are gloriously battling your opponent on the sponsored leaderboard--while being mined on the Ethereum blockchain.</h5></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Depending on the network traffic your transaction could take a few minutes to several hours. If you win the battle with your opponent you will advance to the next spot on the sponsored leaderboard!</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Keep on battling and training your angels and pets in the arena to build up their EXP and AURA. To get an advantage add an Accessory to your team in battle.</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><b>There isn't a rest time. Keep battling on until the end!</b></div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center button-events mb-3">
+                            <button id="goToLeaderboard" type="button" class="btn btn-danger btn-lg">KEEP BATTLING!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/sponsored.js?version=@Helpers.JavascriptVersion"></script>
+
+    <environment include="Development">
+        <script src="~/js/jscookie.js"></script>
+    </environment>
+    <environment exclude="Development">
+        @*<script src="~/js/sponsored.min.js"></script>*@
+        <script src="~/js/jscookie.min.js"></script>
+    </environment>
+
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/parallax.min.js"></script>
+}

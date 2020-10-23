@@ -1,0 +1,134 @@
+﻿
+.background {
+    /*background: url('../images/realm/sky.svg') no-repeat center center fixed;*/
+    bottom: 0px;
+    background-size: cover;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.light-effects {
+    background: url('../images/realm/LightEffects.svg') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    bottom: 0px;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.cloud-navbar {
+    background: url('../images/realm/CloudsNavbar.svg') center center fixed;
+    background-repeat: no-repeat;
+    background-position: top;
+    opacity: 0.4;
+    bottom: 0px;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.cloud-front {
+    background: url('../images/realm/CloudsFront.svg') center center fixed;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    opacity: 0.8;
+    bottom: 0px;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.cloud-middle {
+    background: url('../images/realm/CloudsMiddle.svg') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    bottom: 0px;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.cloud-back {
+    background: url('../images/realm/CloudsBack.svg') center center fixed;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    bottom: 0px;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.hidden {
+    display: none;
+}
+
+.logo-realm {
+    width: auto;
+    height: auto;
+    margin: 30px;
+}
+
+@media screen and (max-width: 566px) {
+    .logo-realm {
+        width: 200px;
+        height: auto;
+        margin: 30px;
+    }
+}
+
+.intro-caption {
+    font-family: Roboto,sans-serif;
+    color: rgb(3, 15, 35);
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -.23px;
+}
+
+@media screen and (max-width: 1024px) {
+    .intro-caption {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width: 566px) {
+    .intro-caption {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    .discord-button {
+        height: 30px;
+        margin-right: 10px !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .discord-button {
+        height: 60px;
+        margin-right: 10px !important;
+    }
+}

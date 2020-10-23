@@ -1,0 +1,239 @@
+﻿.background {
+    /*background: url('../images/Team/TeamBack.svg') no-repeat center center fixed;*/
+    bottom: 0;
+    background-size: cover;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.leaderboard-mountains {
+    /*background: url('../images/Zion/ZionMountain.svg') center center fixed;*/
+    background-repeat: repeat-x;
+    background-position: bottom;
+    opacity: 0.9;
+    bottom: 0;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.leaderboard {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow: auto;
+}
+
+.gold-card {
+    background-image: url('../images/site/goldfoil.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.gem-style {
+    width: 30px;
+    height: 30px;
+}
+
+.boxhead {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.boxhead:hover {
+    color: lightgray;
+    text-decoration: none;
+}
+
+/*------- CARDS -----------*/
+.card {
+    font-size: 1em;
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+    .card:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+
+.card-divider {
+    font-size: 1em;
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    border-radius: .28571429rem;
+    background-color: #c0e1ff;
+}
+
+.card-block-coming-soon {
+    font-size: 1em;
+    position: relative;
+    padding: 1em;
+    border: none;
+    border-top: 1px solid rgba(34, 36, 38, .1);
+    box-shadow: none;
+}
+
+@media only screen and (min-width: 634px) {
+    .card-block {
+        font-size: 1em;
+        position: relative;
+        margin: 0;
+        padding: 1em;
+        border: none;
+        border-top: 1px solid rgba(34, 36, 38, .1);
+        box-shadow: none;
+        /*min-height: 240px;*/
+    }
+}
+
+@media only screen and (max-width: 633px) {
+    .card-block {
+        font-size: 1em;
+        position: relative;
+        margin: 0;
+        padding: 1em;
+        border: none;
+        border-top: 1px solid rgba(34, 36, 38, .1);
+        box-shadow: none;
+    }
+}
+
+.card-block-realm {
+    min-height: 183px;
+}
+
+.card-block-training {
+    min-height: 0;
+}
+
+.card-block-battle {
+    min-height: 0;
+}
+
+.card-block-pets {
+    font-size: 1em;
+    position: relative;
+    margin: 0;
+    padding: 1em;
+    border: none;
+    border-top: 1px solid rgba(34, 36, 38, .1);
+    box-shadow: none;
+    min-height: 100px;
+}
+
+.card-block-accessories {
+    font-size: 1em;
+    position: relative;
+    margin: 0;
+    padding: 1em;
+    border: none;
+    border-top: 1px solid rgba(34, 36, 38, .1);
+    box-shadow: none;
+    min-height: 70px;
+}
+
+.card-rarity {
+    background-color: #fff8d2;
+}
+
+.card-img-top {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.card-title {
+    font-size: 1.28571429em;
+    font-weight: 700;
+    line-height: 1.2857em;
+}
+
+.card-text {
+    clear: both;
+    margin-top: .5em;
+    color: rgba(0, 0, 0, .68);
+}
+
+.card-footer {
+    font-size: 1em;
+    position: static;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    padding: .75em 1em;
+    color: rgba(0, 0, 0, .4);
+    border-top: 1px solid rgba(0, 0, 0, .05) !important;
+    background: #fff;
+}
+
+.card-inverse .btn {
+    border: 1px solid rgba(0, 0, 0, .05);
+}
+
+.profile {
+    position: absolute;
+    top: -27px;
+    display: inline-block;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 35px;
+    height: 36px;
+    margin: 0;
+    /*border: 1px solid #fff;*/
+    /*border-radius: 50%;*/
+}
+
+.profile-avatar {
+    display: block;
+    width: 100%;
+    height: auto;
+    /*border-radius: 50%;*/
+}
+
+.profile-inline {
+    position: relative;
+    top: 0;
+    display: inline-block;
+}
+
+    .profile-inline ~ .card-title {
+        display: inline-block;
+        margin-left: 4px;
+        vertical-align: top;
+    }
+
+.text-bold {
+    font-weight: 700;
+}
+
+.no-underline {
+    text-decoration: none !important;
+}
+
+.meta {
+    font-size: 1em;
+    color: rgba(0, 0, 0, .4);
+}
+
+    .meta a {
+        text-decoration: none;
+        color: rgba(0, 0, 0, .4);
+    }
+
+        .meta a:hover {
+            color: rgba(0, 0, 0, .87);
+        }

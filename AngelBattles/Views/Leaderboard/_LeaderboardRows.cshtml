@@ -1,0 +1,124 @@
+﻿@model LeaderboardRowsViewModel
+@using AngelBattles.Utilities
+
+@{
+    var leaderboardRows = Model.Leaderboard;
+    var totalCounter = leaderboardRows?.Count() ?? 0;
+    var itemCounter = 1;
+}
+
+<div class="pl-2">
+    <div class="alert text-center" style="background-color:beige; opacity: 0.9;" role="alert">
+        You've been battling and training your angels and pets hard--let's see how they stack against other players from around the world. <br /><a href="https://medium.com/@@michael_41543/leaderboard-guide-b7acba6b60a5" target="_blank" style="text-decoration:none;">See detailed instructions.</a>
+    </div>
+    <h3 class="mb-2 mt-3">LEADERBOARD</h3>
+    <div>
+        <table class="table table-striped table-responsive" style="background-color: whitesmoke; opacity: 0.9;">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">Angel</th>
+                    <th scope="col">Pet</th>
+                    <th scope="col">Accessory</th>
+                </tr>
+            </thead>
+            <tbody>
+           @foreach (var leaderboardRow in leaderboardRows)
+           {
+               var vsBattleClass = "last-position";
+                    <tr class="leaderboardRow @(itemCounter == totalCounter ? vsBattleClass : "")" data-rankPosition="@itemCounter" data-ownerid="" data-angelseriesid="" data-angelid="@leaderboardRow.AngelId" data-petseriesid="" data-petid="@leaderboardRow.PetId" data-accessoryseriesid="" data-accessoryid="@leaderboardRow.AccessoryId">
+                        <th scope="row"><h4 id="rankPosition">@itemCounter</h4></th>
+                        <td style="width:40%">
+                            <b id="teamName"></b>
+                            <p class="ownerAddress small"></p>
+                            <button id="addTeamName" type="button" class="btn-primary btn btn-sm mb-2" style="display: none;">Set team name</button><br />
+                            <button id="challengeNextPosition" type="button" class="btn-primary btn btn-sm" style="display: none;">Challenge next position!</button>
+                            <div id="challengeSpotRestingWarn" class="form-row text-center bg-light mt-2" style="border-radius: 5px; display: none;">
+                                <div class="col-12">
+                                    <h3><span class="badge badge-secondary">RESTING</span></h3>
+                                    <p class="">Angel will be free to battle in less than 3 hours.</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            @*---- Angel-----*@
+                            <div class="container bg-white float-left" style="border-radius: 5px;">
+                                <div class="row">
+                                    <div class="col overlay-div">
+                                        <img id="angelImage" src="~/images/Site/blank.gif" class="mt-1 mb-1 ml-1" style="height: 115px; width: 115px;" />
+                                        <img id="angelAuraGem" src="~/images/Site/blank.gif" class="corner-image gem-style" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <ul class="list-group mt-3" style="width: 100%;">
+                                        <li class="list-group-item">BP <b id="angelBP"></b></li>
+                                        <li class="list-group-item">EXP <b id="angelEXP"></b></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="petGoldContainer">
+                            @*---- Pet-----*@
+                            <div class="container bg-white float-left" style="border-radius: 5px; width: 330px;">
+                                <div class="row">
+                                    <div class="col overlay-div">
+                                        <img id="petImage" src="~/images/Site/blank.gif" class="mt-1 mb-1 ml-1" style="height: 115px; width: 100%;" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="float-left" style="width: 50%;">
+                                        <ul class="list-group pt-3" style="width: 100%;">
+                                            <li class="list-group-item">
+                                                LUCK <b id="petLuck"></b>
+                                            </li>
+                                            <li class="list-group-item">
+                                                RED Aura <b id="petRedAura"></b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="float-right" style="width: 50%;">
+                                        <ul class="list-group mt-3">
+                                            <li class="list-group-item">
+                                                BLUE Aura <b id="petBlueAura"></b>
+                                            </li>
+                                            <li class="list-group-item">
+                                                YELLOW Aura <b id="petYellowAura"></b>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            @*---- Accessory-----*@
+                            <div id="accessoryItemContainer" class="container bg-white float-left" style="border-radius: 5px;">
+                                <div class="row">
+                                    <div class="col">
+                                        <img id="accImage" src="~/images/Site/blank.gif" class="mt-1 mb-1 ml-1" style="height: 115px; width: 100px;" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <ul class="list-group mt-3" style="width: 100%;">
+                                        <li class="list-group-item"><div id="accText"></div></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    itemCounter++;
+                }
+
+                @*<tr>
+                        <th scope="row">10</th>
+                        <td><button type="button" class="btn btn-danger">Add Team</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>*@
+            </tbody>
+        </table>
+        <button id="challengeLastPosition" type="button" class="btn-primary btn btn-lg btn-block align-self-center text-center mb-3">Click to challenge Last Position!</button>
+    </div>
+</div>

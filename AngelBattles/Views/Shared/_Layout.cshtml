@@ -1,0 +1,136 @@
+﻿@using AngelBattles.Utilities
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114292877-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-114292877-1');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>@ViewData["Title"] - AngelBattles</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css?version=@Helpers.JavascriptVersion" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/site.min.css?version=@Helpers.JavascriptVersion" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="z-index: 1;">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse bg-light" id="navbarNav">
+                <ul class="navbar-nav nav-fill w-100">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-controller="realm">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="team">My Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="training">Training</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkBattles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Battles
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkBattles">
+                            <a class="dropdown-item" asp-controller="battle">Battle Arena</a>
+                            <a class="dropdown-item" asp-controller="sponsored">Sponsored Battles</a>
+                            <a class="dropdown-item disabled" asp-controller="battleboards">Battle Boards</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkStables" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Stables
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkStables">
+                            <a class="dropdown-item" asp-controller="breeding">Breeding</a>
+                            <a class="dropdown-item disabled" asp-controller="PetRecycling">Pet Recycling</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="leaderboard">Leaderboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://medium.com/@@michael_41543/medals-968a9b837354">Medals</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="https://exchange.projectwyvern.com/orders?schema=AngelBattles" id="navbarDropdownMenuLinkMarketplaces" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Marketplaces
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkMarketplaces">
+                            <a class="dropdown-item" target="_blank" href="https://exchange.projectwyvern.com/orders?schema=AngelBattles">Project Wyvern</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="https://medium.com/@@michael_41543/guide-to-playing-angelbattles-com-12b6beb5d9cb" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Guides
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" target="_blank" href="https://medium.com/@@michael_41543/guide-to-playing-angelbattles-com-12b6beb5d9cb">Gameplay</a>
+                            <a class="dropdown-item" target="_blank" href="https://medium.com/@@michael_41543/detailed-training-instructions-68c6f5c01f52">Training</a>
+                            <a class="dropdown-item" target="_blank" href="https://medium.com/@@michael_41543/battling-guide-3d1bd76a2061">Battle Arena</a>
+                            <a class="dropdown-item" target="_blank" href="https://medium.com/@@michael_41543/medals-and-sponsored-leaderboards-earn-eth-for-battling-7086bbc2e7a">Sponsored Battles</a>
+                            <a class="dropdown-item" target="_blank" href="https://medium.com/@@michael_41543/breeding-instructions-1bfebaa290f7">Breeding</a>
+                            <a class="dropdown-item" target="_blank" href="https://medium.com/@@michael_41543/leaderboard-guide-b7acba6b60a5">Leaderboard</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="~/js/web3.min.js"></script>
+
+
+    <environment include="Development">
+        <script type="text/javascript" src="~/js/solidityaddresses.js?version=@Helpers.JavascriptVersion"></script>
+        <script type="text/javascript" src="~/js/site.js?version=@Helpers.JavascriptVersion" asp-append-version="true"></script>
+        <script src="~/js/test.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script type="text/javascript" src="~/js/solidityaddresses.min.js?version=@Helpers.JavascriptVersion"></script>
+        <script type="text/javascript" src="~/js/site.min.js?version=@Helpers.JavascriptVersion" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

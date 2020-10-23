@@ -1,0 +1,62 @@
+﻿@model PetCardRowsViewModel
+@using AngelBattles.Utilities
+
+@{
+    var pets = Model.Pets;
+    var numberOfColsNeeded = 4;
+    var totalCounter = pets?.Count();
+    var itemCounter = 1;
+}
+
+@if (pets != null)
+{
+    @foreach (var pet in pets.GroupBy(x => x.PetId).Select(y => y.First()).OrderByDescending(z => z.PetCardSeriesId))
+    {
+        if (itemCounter % numberOfColsNeeded == 1)
+        {
+            @:<div class="row">
+        }
+
+        var cardImage = Helpers.GetPetCardSimple(pet.PetCardSeriesId, Helpers.IsGoldCard(pet.PetCardSeriesId, pet.PetId));
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+            <div class="card pet-battle-card hand-cursor" data-petId="@pet.PetId" data-petcardseriesid="@pet.PetCardSeriesId">
+                <img class="card-img-top" src="@cardImage" />
+                <div class="card-block-pets">
+                    <div id="onLeaderboardWarnPet" class="card-text" style="display: none;">
+                        <div class="form-row text-center">
+                            <div class="col-12">
+                                <h3><span class="badge badge-warning">ON LEADERBOARD</span></h3>
+                                <p>This pet is currently on the leaderboard.</p>
+                                <p>Select another pet or <a asp-controller="realm" asp-action="index" style="pointer-events:visible">get more here!</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="petDetails">
+                        <div class="card-text card-header-break">
+                            Pet #@pet.PetId
+                        </div>
+                        <div class="card-text">
+                            <b>Luck: </b><b id="petCardRowLuck" class="light-text">@pet.Luck</b><br />
+                            <b>Aura Red: </b><b id="petCardRowAuraRed" class="light-text">@pet.AuraRed</b><br />
+                            <b>Aura Blue: </b><b id="petCardRowAuraBlue" class="light-text">@pet.AuraBlue</b><br />
+                            <b>Aura Yellow: </b><b id="petCardRowAuraYellow" class="light-text">@pet.AuraYellow</b><br />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <b>@pet.Name</b>
+                </div>
+            </div>
+        </div>
+        if ((itemCounter % numberOfColsNeeded == 0) || ((itemCounter) == totalCounter))
+        {
+            @:</div>
+        }
+        itemCounter++;
+     }
+    <br />
+    <div class="row"></div>
+}
+

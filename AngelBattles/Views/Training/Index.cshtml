@@ -1,0 +1,155 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Training";
+}
+
+<link href="~/css/cards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/training.css?version=@Helpers.JavascriptVersion" />
+
+<!-- Modal -->
+@Html.Partial("_ModalWarnings")
+
+<div id="teamContainer">
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Team - Clouds ****@
+        <div data-depth="0" class="purgatory-rocks"></div>
+
+        @***** Cards ****@
+        <div class="container-fluid cards" style="padding-top: 70px;">
+            <div id="trainingOuterContainer" class="container">
+                <div class="pl-2">
+                    <div class="alert text-center" style="background-color:beige; opacity: 0.9;" role="alert">
+                        Build the Aura Power of your teams by training an angel with two pets. <a href="https://medium.com/@@michael_41543/detailed-training-instructions-68c6f5c01f52" target="_blank" style="text-decoration:none;">See detailed instructions.</a>
+                    </div>
+
+                    <div id="trainingContainer" class="container-fluid p-3" style="display: none; width: 70%; background-color: black; border: dashed; border-width: 1px; border-color: black; border-radius: 5px;">
+                        <div class="card-deck">
+                            <div id="angelToTrain" class="card" data-angelid="" style="width: auto; height: 170px;">
+                                <img id="angelImage" class="card-img-top p-2 align-self-center" src="~/images/Site/blank.gif" style="max-width: 150px; display: none;">
+                                
+                                <div class="overlay-div">
+                                    <img id="angelAuraGem" src="~/images/Site/blank.gif" class="corner-image-training-gem gem-style" />
+                                </div>
+
+                                <div class="container d-flex h-100">
+                                    <div class="row justify-content-center align-self-center text-center align-middle">
+                                        <p id="chooseAngelText" class="m-3">click on your angel to train</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="petOneToTrain" class="card" data-petoneid="" style="width: auto; height: 170px;">
+                                <img id="petOneImage" class="card-img-top align-self-center mt-2" src="~/images/Site/blank.gif" alt="Click on a pet to train" style="display: none;">
+                                <div class="container d-flex h-100">
+                                    <div class="row justify-content-center align-self-center text-center align-middle">
+                                        <p id="choosePetOneText" class="m-4" style="display: none;">click on your pet to train</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="petTwoToTrain" class="card" data-pettwoid="" style="width: auto; height: 170px;">
+                                <img id="petTwoImage" class="card-img-top align-self-center mt-2" src="~/images/Site/blank.gif" alt="Click on a pet to train" style="display: none;">
+                                <div class="container d-flex h-100">
+                                    <div class="row justify-content-center align-self-center text-center align-middle">
+                                        <p id="choosePetTwoText" class="m-4" style="display: none;">click on your pet to train</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="beginTraining" class="form-row text-center mt-4" style="display: none;">
+                        <div class="col-12">
+                            <button id="beginTrainingButton" type="button" class="btn btn-danger btn-lg">Begin Training!</button>
+                        </div>
+                    </div>
+
+                    <div id="angelsContainer" style="display: none;"></div>
+
+                    <div>
+                        <p id="warnNoCardsFoundAngel" class="alert alert-primary text-center mt-5" style="display: none;">No angel cards yet. <a asp-controller="realm">Let's get some cards!</a></p>
+                    </div>
+
+                    <div id="petsContainer" style="display: none;"></div>
+
+                    <div>
+                        <p id="warnNoCardsFoundPet" class="alert alert-primary text-center mt-5" style="display: none;">No pet cards yet. <a asp-controller="realm">Let's get some cards!</a></p>
+                    </div>
+
+                    <div>
+                        <p id="warnNoCardsFound" class="alert alert-primary text-center mt-5" style="display: none;">No cards yet. <a asp-controller="realm">Let's get some cards!</a></p>
+                        <p id="warnNeedOneMorePetCard" class="alert alert-primary text-center mt-5" style="display: none;">You need one more pet card to train. <a asp-controller="realm">Let's get that card!</a></p>
+                    </div>
+
+                </div>
+            </div>
+
+            @Html.Partial("_Loader")
+
+            <div>
+                <div id="buyAngelsContainer" style="display: none;">
+                    <div class="container button-events">
+                        @Html.Partial("_AngelRowCards", new AngelCardRowsViewModel { ShowComingSoonCards = false })
+                    </div>
+                </div>
+
+                <div id="buyPetsContainer" style="display: none;">
+                    <div class="container button-events">
+                        @Html.Partial("_PetRowCards")
+                    </div>
+                </div>
+
+                <div id="buyAccessoriesContainer" style="display: none;">
+                    <div class="container button-events">
+                        @Html.Partial("_AccessoryRowCards")
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-data text-center">
+            <div id="trainingCompleted" class="container absolute-center is-responsive button-events overflow-auto" style="display: none;">
+                <div class="row align-self-center rounded parent-opacity">
+                    <div class="col-md-6 pl-4 pt-4 pb-4">
+                        <img src="~/images/Ribbons/AuraRibbon.png" class="mt-lg-4" style="width: 90%;" />
+                    </div>
+                    <div class="col-md-6 p-5">
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h2>WORK IT!</h2></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h4>Your angel and pets are hard at work training--while being mined on the Ethereum blockchain.</h4></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Depending on the network traffic your transaction could take a few minutes to several hours. Once mined the results will appear aura of the cards selected on the <a asp-controller="Team">My Team</a> page.</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Keep on training and your angels and pets and you'll be crushing it on the Leaderboard and making your way to the top of Mt. Zion!</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><b>Once the pets you've selected are in training they can't be retrained for 24 hours.</b></div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center button-events mb-3">
+                            <button id="keepTraining" type="button" class="btn btn-danger btn-lg">Let's train other pets!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <environment include="Development">
+        <script src="~/js/training.js?version=@Helpers.JavascriptVersion"></script>
+        <script src="~/js/jscookie.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/training.min.js?version=@Helpers.JavascriptVersion"></script>
+        <script src="~/js/jscookie.min.js"></script>
+    </environment>
+
+    <script type="text/javascript" src="~/js/jquery.lazy.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/parallax.min.js"></script>
+}

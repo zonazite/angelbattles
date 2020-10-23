@@ -1,0 +1,76 @@
+﻿.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.battle-hell {
+    background: linear-gradient(rgba(255,255,255,0.25),rgba(255,255,255,0.25)), url('../images/Battle/Hell.png') center center fixed;
+    bottom: 0px;
+    background-size: contain;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.battle-hell-steam {
+    background: url('../images/Battle/HellSteam.png') center center fixed;
+    background-repeat: repeat-x;
+    background-position:bottom;
+    opacity: 0.9;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.battle-meadows {
+    background: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.25)), url('../images/Battle/Meadow.png') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    opacity: 0.9;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.battle-forest {
+    background: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.25)), url('../images/Battle/ForestBackground.png') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    opacity: 0.9;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.battle-thunderdome {
+    background: linear-gradient(rgba(255,255,255,0.1),rgba(255,255,255,0.25)), url('../images/Battle/ThunderDomeBackground.png') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    opacity: 1;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.rock:hover {
+    transform: translateY(5px);
+}

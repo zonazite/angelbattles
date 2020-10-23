@@ -1,0 +1,67 @@
+﻿@model AngelCardRowsViewModel
+@using AngelBattles.Utilities
+
+@{
+    var angels = Model.Angels;
+    var angelNextBattleTimes = Model.AngelsNextBattleTimes;
+    var numberOfColsNeeded = 4;
+    var totalCounter = angels?.Count();
+    var itemCounter = 1;
+}
+
+@if (angels != null)
+{
+    @foreach (var angel in angels.GroupBy(x => x.AngelId).Select(y => y.First()).OrderByDescending(z => z.AngelCardSeriesId))
+    {
+        if (itemCounter % numberOfColsNeeded == 1)
+        {
+            @:<div class="row">
+        }
+
+        var angelCardInfo = Helpers.GetAngelCardInfo(angel.AngelCardSeriesId, angel.Aura);
+
+        var isInBattle = false;
+        var angelNextBattleTimeObject = angelNextBattleTimes.FirstOrDefault(x => x.AngelId == angel.AngelId);
+        var nextBattleTime = Helpers.UnixTimeStampToDateTime(angelNextBattleTimeObject.NextBattleTime);
+        if (nextBattleTime != DateTime.MinValue)
+        {
+            DateTime now = DateTime.Now;
+            isInBattle = (nextBattleTime > now);
+        }
+
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4 angel-battle-card @(isInBattle ? "in-battle" : "")" data-angelId="@angel.AngelId" data-angelcardseriesid="@angel.AngelCardSeriesId">
+            <div class="card @(isInBattle ? "no-pointers-events" : "hand-cursor")">
+                <img class="card-img-top" src="@angelCardInfo.CardImage" />
+                <div class="card-block card-block-battle">
+                    <figure class="profile">
+                        <img src="@angelCardInfo.GemImage" class="profile-avatar" alt="@angelCardInfo.GemAltText" />
+                    </figure>
+                </div>
+                <div class="card-footer">
+                    <a>Angel #@angel.AngelId</a>
+                </div>
+                <div class="card-footer">
+
+                    <div id="inBattleWarn" class="card-text" style="display: @(isInBattle ? "block" : "none");">
+                        <div class="form-row text-center">
+                            <div class="col-12">
+                                <h3><span class="badge badge-warning">RESTING</span></h3>
+                                <p>Angel will be free to battle in <a class="angelRestingTime" data-endtime="@(isInBattle ? angelNextBattleTimeObject.NextBattleTime : "")">less than 1-12 hours.</a></p>
+                                <p>Select another angel or <a asp-controller="realm" asp-action="index" style="pointer-events:visible">get more here!</a></p>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <b>BP @angel.BattlePower</b>
+                    <b class="float-right">EXP @angel.Experience</b>
+                </div>
+            </div>
+        </div>
+        if ((itemCounter % numberOfColsNeeded == 0) || ((itemCounter) == totalCounter))
+        {
+            @:</div>
+        }
+        itemCounter++;
+     }
+}
+

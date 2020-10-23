@@ -1,0 +1,62 @@
+﻿@model AccessoryCardRowsViewModel
+@using AngelBattles.Utilities
+
+@{
+    var accessories = Model.Accessories;
+    var numberOfColsNeeded = 4;
+    var totalCounter = accessories?.Count();
+    var itemCounter = 1;
+}
+
+
+@if (accessories != null)
+{
+    <div class="card-divider-team text-center mt-4">
+        <div class="m-3 ml-4 mr-4">
+            <blockquote class="card-blockquote">
+                <h3>ACCESSORIES</h3>
+            </blockquote>
+        </div>
+    </div>
+
+    @foreach (var accessory in accessories.GroupBy(x => x.AccessoryId).Select(y => y.First()).OrderByDescending(z => z.AccessorySeriesId))
+    {
+        if (itemCounter % numberOfColsNeeded == 1)
+        {
+            @:<div class="row">
+        }
+
+        var accessoryCardInfo = Helpers.GetAccessoryCardInfo(accessory.AccessorySeriesId);
+
+        <div class="accessory-card col-sm-6 col-md-4 col-lg-3 mt-4" data-cardtype="acc" data-cardid="@accessory.AccessoryId" data-accessorycardseriesid="@accessory.AccessorySeriesId">
+            <div class="card">
+                <img class="card-img-top" src="@accessoryCardInfo.CardImage" />
+                <div class="card-block-accessories">
+                    <div class="card-text card-header-break">
+                        Accessory #@accessory.AccessoryId
+                    </div>
+                    <div class="card-text light-text">
+                        <b>@accessoryCardInfo.CardDescription</b>
+                    </div>
+                </div>
+                <div class="btn-group-vertical mb-3 ml-3 mr-3">
+                    <button type="button" class="manageCardAccessory btn btn-danger btn-sm">Manage Card</button>
+                </div>
+            </div>
+        </div>
+        if ((itemCounter % numberOfColsNeeded == 0) || ((itemCounter) == totalCounter))
+        {
+            @:</div>
+        }
+        itemCounter++;
+     }
+    <div class="row mb-4"></div>
+
+    @if (totalCounter == 0)
+    {
+        <div id="warnNoCardsFoundAccessory">
+            <p class="alert alert-primary text-center mt-5">No accessory cards yet--get some to increase your battle strength. <a asp-controller="realm">Let's get some accessories!</a></p>
+        </div>
+    }
+}
+

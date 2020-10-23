@@ -1,0 +1,104 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Leaderboard";
+}
+
+<link href="~/css/cards.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+<link href="~/css/leaderboard.css?version=@Helpers.JavascriptVersion" rel="stylesheet" />
+
+<!-- Modal -->
+@Html.Partial("_ModalWarnings")
+
+<div class="modal fade" id="modalAddTeamName" data-teamnameangelid="" tabindex="-1" role="dialog" aria-labelledby="modalAddTeamName" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="modalResultsTitle">Set Team Name</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                @*---- Team Name -----*@
+                <div id="teamNameContainer" class="align-self-center text-center pl-2 pr-2 pt-1 pb-1" style="border-radius: 5px;">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Team Name</span>
+                        </div>
+                        <input id="teamNameInput" name="teamNameInput" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+                <br />
+                <button id="addTeamNameConfirm" class="btn btn-primary">Let's set it!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a name="top" id="top"></a> 
+
+<div>
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Leaderboard - Mountains ****@
+        <div data-depth="0" class="leaderboard-mountains"></div>
+
+        @***** Cards ****@
+        <div class="leaderboard">
+            <div class="container-fluid cards button-events" style="padding-top: 70px; z-index: 1000;">
+                @Html.Partial("_Loader")
+
+                <div id="cardsContainer" class="container">
+                    <div id="leaderboardContainer" style="display: none;"></div>
+                </div>
+
+                @Html.Partial("_VsBattle")
+            </div>
+        </div>
+
+        <div class="card-data text-center">
+            <div id="battleCompleted" class="container absolute-center is-responsive button-events overflow-auto" style="display: none;">
+                <div class="row align-self-center rounded" style="background-color: whitesmoke;">
+                    <div class="col-md-6 pl-4 pt-4 pb-4">
+                        <img src="~/images/Ribbons/BattleRibbon.png" class="mt-lg-4" style="width: 90%;" />
+                    </div>
+                    <div class="col-md-6 p-5">
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h2>VICTORY WILL BE YOURS!</h2></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h4>Your angel and pets are gloriously battling your opponent on the leaderboard--while being mined on the Ethereum blockchain.</h4></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Depending on the network traffic your transaction could take a few minutes to several hours. If you win the battle with your opponent you will advance to the next spot on the leaderboard!</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Keep on battling and training your angels and pets in the arena to build up their EXP and AURA. To get an advantage add an Accessory to your team in battle.</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><b>Once an angel is in battle they can't be entered into another battle for 3 hours.</b></div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center button-events mb-3">
+                            <button id="goToLeaderboard" type="button" class="btn btn-danger btn-lg">View Leaderboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/leaderboard.js?version=@Helpers.JavascriptVersion"></script>
+
+    <environment include="Development">
+        <script src="~/js/jscookie.js"></script>
+    </environment>
+    <environment exclude="Development">
+        @*<script src="~/js/leaderboard.min.js"></script>*@
+        <script src="~/js/jscookie.min.js"></script>
+    </environment>
+    
+    <script src="~/js/parallax.min.js"></script>
+}

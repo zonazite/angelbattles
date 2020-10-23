@@ -1,0 +1,112 @@
+﻿.background {
+    /*background: url('../images/Heaven/HeavenBackSimple.svg') no-repeat center center fixed;*/
+    bottom: 0px;
+    background-size: cover;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.light-effects {
+    background: url('../images/Heaven/HeavenLightEffects.svg') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    bottom: 0px;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.network-good {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+
+.getcard-modal {
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.heaven-front {
+    background: url('../images/Heaven/HeavenFront.svg') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    opacity: 0.9;
+    bottom: 0px;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    data-limit-x: true;
+}
+
+.heaven-middle {
+    background: url('../images/Heaven/HeavenMiddle.svg') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    bottom: 0px;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    data-limit-x: true;
+}
+
+/**** Rock Panel *****/
+.rock-card-containter {
+    /*margin: auto;
+    margin-bottom: 10px;*/
+    position: inherit;
+    top: 250px;
+    left: 120px;
+    bottom: 0;
+    right: 0;
+    width: 220px;
+    height: 300px;
+    background: url('../images/angels/lucifer.svg') no-repeat;
+    z-index: 1;
+}
+
+.div-background-image {
+    width: 1000px;
+    height: 1000px;
+    background-image: url('../images/heaven/rockpanel.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+@media all and (max-width: 1523px) and (min-width: 991px) {
+    .logo-small {
+        bottom: 0;
+        padding-bottom: 30px;
+        position: fixed;
+    }
+}
+
+@media all and (max-width: 991px) {
+    .logo-small {
+        width: 100px;
+        height: auto;
+        right: 30px;
+        top: 0;
+        padding-top: 10px;
+        position: absolute;
+    }
+}
+
+.card-image {
+    max-height: 500px;
+}

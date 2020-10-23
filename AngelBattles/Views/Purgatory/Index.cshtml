@@ -1,0 +1,38 @@
+﻿@using AngelBattles.Utilities
+
+@{
+    ViewData["Title"] = "Purgatory";
+}
+
+@section scripts {
+    <link rel="stylesheet" href="~/css/purgatory.css" />
+
+    <environment include="Development">
+        <script src="~/js/purgatory.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/purgatory.min.js?version=@Helpers.JavascriptVersion"></script>
+    </environment>
+
+    <script src="~/js/parallax.min.js"></script>
+}
+
+<div id="purgatoryContainer">
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Heaven - Middle *****@
+        <div data-depth="0.05" class="purgatory-background-rocks"></div>
+
+        @***** Heaven - Front ****@
+        @*<div data-depth="0" class="purgatory-rocks"></div>*@
+
+        @***** Heaven - Front ****@
+        @*<div data-depth="0" class="purgatory-front"></div>*@
+
+        @**** Logo ****@
+        <div>
+            <a asp-controller="realm">
+                <img src="~/images/Site/Logo.svg" class="logo" />
+            </a>
+        </div>
+    </div>
+</div>

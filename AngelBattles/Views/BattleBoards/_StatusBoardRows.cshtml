@@ -1,0 +1,70 @@
+﻿@using AngelBattles.Utilities
+@model BattleboardRowsViewModel
+
+@{
+    var battleboards = Model.Battleboards;
+    var battleboardTurns = Model.BattleboardTurns;
+}
+<div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Status</th>
+                <th scope="col">Prize</th>
+                <th scope="col">Restrictions</th>
+                <th scope="col">Last Move Time</th>
+                <th scope="col">Turn</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var battleboard in battleboards)
+            {
+                var turnAddress = battleboardTurns.FirstOrDefault(x => x.BattleboardId == battleboard.BattleboardId);
+                var isLiveStatus = "";
+                if (battleboard.IsLive == "true" && battleboard.NumTeams == 6)
+                {
+                    isLiveStatus = "Live";
+                } else if (battleboard.NumTeams < 6)
+                {
+                    isLiveStatus = "Filling";
+                }
+                else
+                {
+                    isLiveStatus = "Closed";
+                }
+
+
+                <tr class="battleboardRow" data-battleboardid="@battleboard.BattleboardId">
+                    <th scope="row">@battleboard.BattleboardId</th>
+                    <td>@(isLiveStatus)</td>
+                    <td>@(battleboard.Prize == "0" ? "Free" : battleboard.Prize)</td>
+                    <td>@(Helpers.GetRestictions(battleboard.Restrictions))</td>
+                    <td>@Helpers.UnixTimeStampToDateTime(battleboard.LastMoveTime)</td>
+                    <td>@(turnAddress?.TurnAddress == "0x" ? "" : (isLiveStatus == "Live" ? turnAddress?.TurnAddress : "") )</td>
+                    <td>
+                        @if (isLiveStatus == "Live" || isLiveStatus == "Filling")
+                        {
+                            if (battleboard.NumTeams != 6)
+                            {
+                                <button type="button" class="formTeam btn btn-primary">BUILD YOUR TEAM</button>
+                            }
+                            if ((battleboard.NumTeams == 6 && battleboard.NumTeams1 == 1 && battleboard.NumTeams2 == 0) || (battleboard.NumTeams == 6 && battleboard.NumTeams1 == 0 && battleboard.NumTeams2 == 1))
+                            {
+                                <button type="button" class="finalizeBoard btn btn-primary">Finalize Board</button>
+                            }
+                            else
+                            {
+                                if (battleboard.NumTeams == 6 )
+                                {
+                                    <button type="button" class="viewPlay btn btn-primary">View / Play</button>
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

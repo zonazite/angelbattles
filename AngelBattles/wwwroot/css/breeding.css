@@ -1,0 +1,50 @@
+﻿.background {
+    /*background: url('../images/Team/TeamBack.svg') no-repeat center center fixed;*/
+    bottom: 0px;
+    background-size: cover;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+
+.team-clouds {
+    background: url('../images/Team/TeamClouds.svg') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    opacity: 0.9;
+    bottom: 0px;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    data-limit-x: true;
+}
+
+.purgatory-rocks {
+    background: url('../images/Breeding/RockLandscape.png') center center fixed;
+    background-repeat: repeat-x;
+    background-position: bottom;
+    bottom: 0px;
+    background-size: contain;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    opacity: 0.8;
+}
+
+
+.battle-container-sizing {
+    width: 50%;
+}
+
+@media only screen and (max-width: 990px) {
+    .battle-container-sizing {
+        width: 70%;
+    }
+}

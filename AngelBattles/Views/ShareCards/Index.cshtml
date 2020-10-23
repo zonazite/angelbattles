@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "Share Cards - Angel Battles";
+}
+
+@section scripts {
+    <link rel="stylesheet" href="~/css/getcard.css" />
+
+    <environment include="Development">
+        <script src="~/js/sharecards.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/sharecards.min.js"></script>
+    </environment>
+
+    <script src="~/js/parallax.min.js"></script>
+}
+
+<div id="heavenContainer">
+    <div data-relative-input="true" class="background" id="scene">
+        @***** Heaven - Middle *****@
+        <div data-depth="0.04" class="heaven-middle"></div>
+
+        @***** Heaven - Front ****@
+        <div data-depth="0" class="heaven-front"></div>
+
+        @***** Rock Panel ****@
+        @*<div class="absolute-center is-responsive">
+                <div class="rock-card-containter">
+                </div>
+            </div>*@
+
+        <div class="card-data text-center">
+            <div class="container absolute-center is-responsive button-events overflow-auto">
+                <div class="row align-self-center rounded parent-opacity">
+                    <div class="col-md-6 pl-4 pt-4">
+                        <img src="~/images/Monsters/Cornu.svg" />
+                        <div class="row align-self-center pt-1 mt-3 ml-3" style="background-color:chartreuse;">
+                            <div class="col-sm text-center">Battle Power</div>
+                            <div class="col-sm text-center">Aura</div>
+                        </div>
+                        <div class="row align-self-center pb-3 ml-3">
+                            <div class="col-sm text-center"><h5>560</h5></div>
+                            <div class="col-sm text-center"><h5>Red</h5></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-5">
+                        <div class="row align-self-center">
+                            <div class="col-sm text-center">Price</div>
+                            <div class="col-sm text-center">Total Created</div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-center"><h3>1 ETH</h3></div>
+                            <div class="col-sm text-center"><h3>249</h3></div>
+                        </div>
+                        <hr />
+                        <br />
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h6>Woohoo! Your friend has just joined the ranks in Angels Battles on the Ethereum blockchain!</h6></div>
+                        </div>
+                        <br />
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Game play, rules, and draw...</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Game play, rules, and draw...</p></div>
+                        </div>
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><p>Game play, rules, and draw...</p></div>
+                        </div>
+                        <br />
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><a asp-controller="guide">Check out the guide here to get your MetaMask account, and Ethereum.</a></div>
+                        </div>
+                        <hr />
+                        <div class="row align-self-center">
+                            <div class="col-sm text-left"><h6>Want to own your own Angel Battle cards and join the ranks?</h6></div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center button-events">
+                            <button type="button" class="btn btn-dark">Let's get cards!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @**** Logo ****@
+        <div class="logo-background">
+            <a asp-controller="realm">
+                <img src="~/images/Site/Logo.svg" class="logo" />
+            </a>
+        </div>
+    </div>
+</div>
